@@ -3,43 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name - MFE Student</title>
+    <title>Alexander Rom - MFE Student</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
             <div class="nav-brand">
-                <a href="#home">MC</a>
+                <a href="#home">AR</a>
             </div>
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#experience" class="nav-link">Experience</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li><a href="#education" class="nav-link">Education</a></li>
             </ul>
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="container">
-            <h1 class="hero-title">Your Name</h1>
-            <p class="hero-subtitle">I am passionate about leveraging technology and quantitative methods to drive innovation through investment solutions.</p>
-            <div class="hero-buttons">
-                <a href="#projects" class="btn btn-primary">View Projects</a>
-                <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">Alexander Rom</h1>
+                    <p class="hero-subtitle">Financial Engineer and Econometrician</p>
+                    <div class="hero-contact">
+                        <div class="hero-contact-item">
+                            <span class="hero-contact-label">Email:</span>
+                            <a href="mailto:a.rom@me.com" class="hero-contact-link">a.rom@me.com</a>
+                        </div>
+                        <div class="hero-contact-item">
+                            <span class="hero-contact-label">LinkedIn:</span>
+                            <a href="https://www.linkedin.com/in/alexander-rom" target="_blank" class="hero-contact-link">Alexander Rom</a>
+                        </div>
+                        <div class="hero-contact-item">
+                            <span class="hero-contact-label">GitHub:</span>
+                            <a href="https://github.com/Arom-MFE" target="_blank" class="hero-contact-link">Arom-MFE</a>
+                        </div>
+                    </div>
+                    <p class="hero-location">Los Angeles, CA</p>
+                </div>
+                <div class="hero-image">
+                    <img src="IMG_9918.jpg" alt="Alexander Rom" class="profile-picture">
+                </div>
             </div>
-            <p class="hero-location">Los Angeles, CA · MS Financial Engineering @ USC</p>
         </div>
     </section>
 
@@ -48,24 +57,101 @@
         <div class="container">
             <h2 class="section-title">About Me</h2>
             <div class="about-content">
-                <div class="about-text">
-                    <p>Driven by curiosity about market behavior, I'm a Financial Engineering student focused on applying data analysis to financial markets. The race to find alpha excites me—discovering patterns in regime shifts, volatility surfaces, or cross-sectional equity signals that translate to real trading strategies.</p>
-                    <p>I'm drawn to the challenge of building models that work not just in backtest but in live markets with transaction costs and changing regimes. I see myself in quantitative research / trading roles where statistical rigor meets practical trading constraints. My interests span systematic equity research, fixed income modeling, and derivatives pricing.</p>
-                    <a href="#" class="btn btn-outline">Download CV →</a>
+                <p>I believe functions define how the world operates, from the dimensional space we inhabit to the dynamics of financial markets. As a Financial Engineer with a background in econometrics, I aim to uncover these hidden functions and translate them into quantitative models that simplify complexity and reveal opportunities.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">Research & Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Time-Series Analysis of Treasury Bond ETF</h3>
+                        <div class="project-links">
+                            <a href="projects/project-tlt-analysis.html" class="project-link">See Details →</a>
+                        </div>
+                    </div>
+                    <p class="project-tech">Time Series · ARIMAX · TAR Regimes · GARCH · Forecasting · Python</p>
+                    <p class="project-description">Modeled daily TLT returns (2004–2024) with regime-switching ARIMAX (Fed-rate states) and GARCH volatility, showing strong flight-to-safety dynamics (VIX↑, equities↓) and improved fit/forecasting versus a baseline ARIMA.</p>
                 </div>
-                <div class="skills">
-                    <div class="skill-category">
-                        <h3>Finance & Methods</h3>
-                        <p>Time-series forecasting (ARIMA/ARMA/GARCH) · Portfolio optimization · Risk management · Derivatives pricing</p>
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Impact of Banking Competition on Household Loan Rates in the Euro&nbsp;Area</h3>
+                        <div class="project-links">
+                            <a href="projects/project-banking-competition.html" class="project-link">See Details →</a>
+                        </div>
                     </div>
-                    <div class="skill-category">
-                        <h3>Programming & Tools</h3>
-                        <p>Python · C++ · SQL · Git · Pine Script · Excel/VBA</p>
+                    <p class="project-tech">Panel Data · Hausman–Taylor · Fixed Effects · Banking / Credit Markets</p>
+                    <p class="project-description">Panel regression across 13 Euro-area countries (2014–2020) testing how local banking competition (branches per 100k adults) relates to household loan rates using Fixed Effects and Hausman–Taylor.</p>
+                </div>
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Determinants of U.S. Credit Card Delinquency Rates</h3>
+                        <div class="project-links">
+                            <a href="projects/project-credit-card-default.html" class="project-link">See Details →</a>
+                        </div>
                     </div>
-                    <div class="skill-category">
-                        <h3>Libraries</h3>
-                        <p>pandas · numpy · statsmodels · scikit-learn · LightGBM · cvxpy · matplotlib</p>
+                    <p class="project-tech">Time Series · OLS Regression · Nonlinear Effects · Newey–West · Household Finance</p>
+                    <p class="project-description">Models U.S. credit-card delinquency (2000Q3–2023Q2) using quarterly FRED data and an OLS/Newey–West time-series regression to quantify how credit-card APRs, financial conditions, and unemployment (with a COVID regime interaction) explain default risk over time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience">
+        <div class="container">
+            <h2 class="section-title">Experience</h2>
+            <div class="experience-list">
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div>
+                            <h3>Insider Ownership Index</h3>
+                            <p class="experience-role">Quantitative Research Consultant</p>
+                        </div>
+                        <div class="experience-header-right">
+                            <span class="experience-location">Los Angeles, CA</span>
+                            <span class="experience-date">Sep. 2025 - Present</span>
+                        </div>
                     </div>
+                    <ul class="experience-details">
+                        <li>Derived return-maximizing insider ownership level for S&P 500 firms (5- and 7-year forward returns) using cross-sectional and panel regressions; the resulting curve underlies Inside Ownership 100 index weights</li>
+                        <li>Performed stress testing and scenario analysis on the index with optimal insider-ownership weights to evaluate return stability across market regimes and validate signal robustness (Python)</li>
+                    </ul>
+                </div>
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div>
+                            <h3>University of San Francisco</h3>
+                            <p class="experience-role">Teaching Assistant</p>
+                        </div>
+                        <div class="experience-header-right">
+                            <span class="experience-location">San Francisco, CA</span>
+                            <span class="experience-date">Jan. 2024 - May 2025</span>
+                        </div>
+                    </div>
+                    <ul class="experience-details">
+                        <li>Assisted professors across three courses (Economic Methods, Intermediate Microeconomics, Applied Econometrics); led weekly sections and office hours covering microeconomic theory, regression analysis, and optimization for 60+ students. Across semesters, average course performance increased by ~5% relative to the previous term. In Applied Econometrics, mentored 30 students through thesis-style empirical papers, supporting research design, model specification, robustness checks, and publication-ready writing.</li>
+                    </ul>
+                </div>
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div>
+                            <h3>Bridges and Barriers Advisory Services</h3>
+                            <p class="experience-role">Data Analyst Intern</p>
+                        </div>
+                        <div class="experience-header-right">
+                            <span class="experience-location">San Francisco, CA</span>
+                            <span class="experience-date">May 2024 - Sep. 2024</span>
+                        </div>
+                    </div>
+                    <ul class="experience-details">
+                        <li>Engineered Python pipelines to clean and validate large-scale financial and market datasets, converting raw inputs into structured trade-ready data; reduced preprocessing time by 50+ hrs/month and accelerated model deployment for investment analysis</li>
+                        <li>Collaborated with clients, identifying inefficiencies in operational workflows; implemented quantitative automations that improved data accuracy, cut manual work, and enhanced investment analysis</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -78,165 +164,39 @@
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="timeline-content">
-                        <h3>USC</h3>
-                        <p class="timeline-degree">MS Financial Engineering</p>
-                        <p class="timeline-date">Expected: Dec 2026</p>
+                        <div class="timeline-header">
+                            <h3>University of Southern California (Viterbi)</h3>
+                            <span class="timeline-date">Aug 2025 – May 2027 (Expected)</span>
+                        </div>
+                        <p class="timeline-degree">M.S. Financial Engineering</p>
+                        <p class="timeline-detail">Dean's Master's Scholarship (merit-based)</p>
+                        <p class="timeline-detail">Relevant coursework: Optimization, Probability/Stochastic Processes, Derivatives Pricing, Machine Learning, Numerical Methods</p>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-content">
-                        <h3>Your University</h3>
-                        <p class="timeline-degree">BS Finance</p>
-                        <p class="timeline-date">2024</p>
+                        <div class="timeline-header">
+                            <h3>University of San Francisco</h3>
+                            <span class="timeline-date">Aug 2022 – May 2025</span>
+                        </div>
+                        <p class="timeline-degree">B.S. Economics (Financial Economics)<br>Minor: Computer Science</p>
+                        <p class="timeline-detail">Relevant coursework: Real Analysis, Linear Algebra & Probability, Financial & Applied Econometrics, Micro & Macroeconomics, Statistics, Data Structures & Algorithms, Options & Futures</p>
+                        <p class="timeline-detail">Fed Challenge (2023): Led 5-person team; presented policy recommendation to Federal Reserve judges</p>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Experience Section -->
-    <section id="experience" class="experience">
-        <div class="container">
-            <h2 class="section-title">Professional Experience</h2>
-            <div class="experience-list">
-                <div class="experience-item">
-                    <div class="experience-header">
-                        <div>
-                            <h3>Company Name</h3>
-                            <p class="experience-role">Your Role</p>
-                        </div>
-                        <span class="experience-date">Date Range</span>
-                    </div>
-                    <p class="experience-location">Location</p>
-                    <ul class="experience-details">
-                        <li>Key achievement or responsibility</li>
-                        <li>Another important point</li>
-                        <li>Quantifiable result or impact</li>
-                    </ul>
-                </div>
-                <div class="experience-item">
-                    <div class="experience-header">
-                        <div>
-                            <h3>Company Name</h3>
-                            <p class="experience-role">Your Role</p>
-                        </div>
-                        <span class="experience-date">Date Range</span>
-                    </div>
-                    <p class="experience-location">Location</p>
-                    <ul class="experience-details">
-                        <li>Key achievement or responsibility</li>
-                        <li>Another important point</li>
-                        <li>Quantifiable result or impact</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
-        <div class="container">
-            <h2 class="section-title">Quantitative Research Projects</h2>
-            <p class="section-subtitle">Applied research in statistical modeling, algorithmic trading, and derivatives pricing</p>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>Project Title</h3>
-                        <div class="project-links">
-                            <a href="#" class="project-link">GitHub →</a>
-                            <a href="#" class="project-link">See Details →</a>
-                        </div>
-                    </div>
-                    <p class="project-tech">Python · Library1 · Library2</p>
-                    <p class="project-description">Brief description of your project, what it does, and key achievements or metrics.</p>
-                    <div class="project-metrics">
-                        <div class="metric">
-                            <span class="metric-value">1.08</span>
-                            <span class="metric-label">Sharpe Ratio</span>
-                        </div>
-                        <div class="metric">
-                            <span class="metric-value">-45%</span>
-                            <span class="metric-label">Max Drawdown</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>Project Title</h3>
-                        <div class="project-links">
-                            <a href="#" class="project-link">GitHub →</a>
-                            <a href="#" class="project-link">See Details →</a>
-                        </div>
-                    </div>
-                    <p class="project-tech">Python · Library1 · Library2</p>
-                    <p class="project-description">Brief description of your project, what it does, and key achievements or metrics.</p>
-                    <div class="project-metrics">
-                        <div class="metric">
-                            <span class="metric-value">8-15%</span>
-                            <span class="metric-label">Target Fill Rate</span>
-                        </div>
-                        <div class="metric">
-                            <span class="metric-value">550+</span>
-                            <span class="metric-label">Fills</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>Project Title</h3>
-                        <div class="project-links">
-                            <a href="#" class="project-link">GitHub →</a>
-                            <a href="#" class="project-link">See Details →</a>
-                        </div>
-                    </div>
-                    <p class="project-tech">Python · Library1 · Library2</p>
-                    <p class="project-description">Brief description of your project, what it does, and key achievements or metrics.</p>
-                    <div class="project-metrics">
-                        <div class="metric">
-                            <span class="metric-value">1.38</span>
-                            <span class="metric-label">Validation Sharpe</span>
-                        </div>
-                        <div class="metric">
-                            <span class="metric-value">0.64</span>
-                            <span class="metric-label">Live Sharpe</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">Get in Touch</h2>
-            <p class="section-subtitle">Open to quantitative research opportunities, collaborations, and discussions</p>
-            <div class="contact-info">
-                <a href="mailto:your.email@example.com" class="contact-item">
-                    <span class="contact-label">Email</span>
-                    <span class="contact-value">your.email@example.com</span>
-                </a>
-                <a href="https://linkedin.com/in/yourprofile" target="_blank" class="contact-item">
-                    <span class="contact-label">LinkedIn</span>
-                    <span class="contact-value">/in/yourprofile</span>
-                </a>
-                <a href="https://github.com/yourusername" target="_blank" class="contact-item">
-                    <span class="contact-label">GitHub</span>
-                    <span class="contact-value">@yourusername</span>
-                </a>
-            </div>
-            <a href="#" class="btn btn-primary">15-min Chat</a>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Your Name</p>
+            <p>&copy; 2025 Alexander Rom</p>
         </div>
     </footer>
 
     <script src="script.js"></script>
 </body>
 </html>
+
 
