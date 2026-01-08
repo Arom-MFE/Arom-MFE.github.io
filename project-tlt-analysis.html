@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time-Series Analysis of 20+ Year Treasury Bond ETF | Alexander Rom</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="../index.html">AR</a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html#about" class="nav-link">About</a></li>
+                <li><a href="../index.html#projects" class="nav-link">Projects</a></li>
+                <li><a href="../index.html#experience" class="nav-link">Experience</a></li>
+                <li><a href="../index.html#education" class="nav-link">Education</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Project Detail Section -->
+    <section class="project-detail">
+        <div class="container">
+            <div class="project-detail-header">
+                <a href="../index.html#projects" class="back-link">← Back to Research & Projects</a>
+                <h1 class="project-detail-title">Time-Series Analysis of 20+ Year Treasury Bond ETF</h1>
+            </div>
+
+            <div class="project-detail-header" style="margin-bottom: 1.5rem; margin-top: 0.5rem;">
+                <a href="TLT.pdf" target="_blank" class="project-link-button">Full Paper (PDF) →</a>
+            </div>
+
+            <!-- Abstract -->
+            <div class="project-section">
+                <h2 class="section-title">Abstract</h2>
+                <p class="abstract-text">This paper analyzes the behavior of daily returns of the iShares 20+ Year Treasury Bond ETF (TLT), focusing on the impact of macroeconomic and financial market variables, including market volatility index, S&P500 returns, changes in Fed rates, Treasury bond market yield, and inflation. Models utilized daily data from January 2004 to July 2024, the analysis incorporates advanced time-series models to capture the dynamics of returns in TLT. An ARIMAX model with state-dependent dynamics using a Threshold Autoregressive (TAR) framework reveals the significant role of Federal Funds Rate changes in regime-dependent effects on returns. Additionally, a GARCH-ARIMAX model was employed to address volatility clustering and persistence, highlighting the impact of recent shocks and long-term volatility persistence. Both models demonstrate the critical influence of market volatility and equity returns on the daily performance of TLT. The findings provide a comprehensive understanding of the drivers of long-term Treasury bond returns and underscore the importance of accounting for regime changes and time-varying volatility in modeling.</p>
+            </div>
+
+            <!-- Data -->
+            <div class="project-section">
+                <h2 class="section-title">Data</h2>
+                <ul class="bullet-list">
+                    <li><strong>Asset:</strong> TLT daily returns (R_TLT)</li>
+                    <li><strong>Sample:</strong> Jan 5, 2004 – Jul 1, 2024 (5,156 trading-day observations)</li>
+                    <li><strong>Sources:</strong> Yahoo Finance + FRED (lower-frequency macro series mapped to daily frequency)</li>
+                    <li><strong>Key drivers used in core specs:</strong> VIX, S&P 500 returns (R_GSPC), inflation (INFL), long-term Treasury yield (DGS20), and changes in the Fed funds rate (dFEDRATE)</li>
+                </ul>
+            </div>
+
+            <!-- Methods -->
+            <div class="project-section">
+                <h2 class="section-title">Methods</h2>
+                <ul class="bullet-list">
+                    <li><strong>Baseline benchmark:</strong> ARIMA(2,0,2) selected by AIC (AIC = 13,765.91); ex-post RMSFE = 1.0598</li>
+                    <li><strong>Regime switching (preferred mean-dynamics extension):</strong> ARIMAX(2,0,2) + TAR, where regimes are defined by dFEDRATE (rate cuts vs stable/increasing-rate periods) and implemented via regime-specific lag interactions<br>
+                    – Performance improvement vs baseline: AIC = 13,148.81; RMSFE = 0.9097872</li>
+                    <li><strong>Volatility modeling (best overall model in the writeup):</strong> GARCH(1,2) variance layered on an ARIMA(1,0,3) mean with exogenous drivers (VIX and lag, R_GSPC and lag, INFL, dFEDRATE, and lagged DGS20)<br>
+                    – Strong ARCH effects: ARCH LM χ² = 725.141 (p = 0.0000)<br>
+                    – Best fit + slightly better forecasting: AIC = 12,191.62; RMSFE = 0.90935889</li>
+                </ul>
+            </div>
+
+            <!-- Key Results -->
+            <div class="project-section">
+                <h2 class="section-title">Key Results</h2>
+                <p class="results-intro">What the models agree on:</p>
+                <ul class="bullet-list">
+                    <li><strong>Flight-to-safety is the dominant daily story:</strong> VIX is a positive driver of TLT returns and S&P 500 returns are a negative driver, consistent across both the ARIMAX+TAR model and the GARCH-ARIMAX model.</li>
+                    <li><strong>Monetary policy regimes matter:</strong> the ARIMAX+TAR specification shows that TLT's lag dynamics differ materially during rate-cut regimes versus stable/increasing-rate regimes (dFEDRATE-based state interactions).</li>
+                    <li><strong>Volatility clustering is real (and large):</strong> the ARCH LM test strongly rejects no-ARCH, and the GARCH terms imply persistent volatility dynamics, meaning shocks propagate into future risk.</li>
+                    <li><strong>Adding regimes + time-varying volatility materially improves forecasting vs a plain ARIMA benchmark:</strong> RMSFE falls from 1.0598 (baseline ARIMA) to ~0.91 in both the TAR and GARCH specifications, with the GARCH-ARIMAX model also improving directional realism.</li>
+                </ul>
+                <h3 class="subsection-title">Conclusion</h3>
+                <p class="conclusion-text">Across 2004–2024, TLT's daily returns are best explained by (1) risk-off conditions (higher VIX and weaker equity returns) and (2) monetary-policy regime shifts captured by changes in the Fed funds rate. Relative to a simple ARIMA benchmark, incorporating regime dependence and volatility dynamics substantially improves fit and forecasting accuracy, and the GARCH-ARIMAX specification provides the most realistic description of volatility behavior in TLT returns.</p>
+            </div>
+
+            <!-- Key Model Outputs -->
+            <div class="project-section">
+                <h2 class="section-title">Key Model Outputs</h2>
+                
+                <ul class="bullet-list">
+                    <li><strong>ARIMA(2,0,2):</strong> AIC 13765.91; RMSFE 1.0598</li>
+                    <li><strong>ARIMAX+TAR:</strong> AIC 13148.81; RMSFE 0.9097872</li>
+                    <li><strong>GARCH(1,2)–ARIMA(1,0,3)+X:</strong> AIC 12191.62; RMSFE 0.90935889</li>
+                    <li><strong>ARCH LM:</strong> chi-square 725.141, p=0.0000</li>
+                    <li><strong>Volatility persistence:</strong> GARCH(L)=0.389; GARCH(L2)=0.521</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Alexander Rom. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html>
+
