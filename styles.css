@@ -254,7 +254,8 @@ section:last-of-type {
 .section-title {
     font-size: 1.6rem;
     font-weight: 600;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.8rem;
+    margin-top: 0.5rem;
     color: var(--primary-color);
     letter-spacing: -0.2px;
     border-bottom: none;
@@ -619,7 +620,7 @@ section:last-of-type {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.25rem;
     flex-wrap: wrap;
     gap: 1rem;
 }
@@ -636,6 +637,11 @@ section:last-of-type {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+}
+
+/* Live demo button styling when in tech row */
+.project-tech-row #live-demo-btn {
+    flex-shrink: 0;
 }
 
 .project-link {
@@ -657,11 +663,22 @@ section:last-of-type {
     text-decoration: none;
 }
 
+.project-tech-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
 .project-tech {
     color: var(--secondary-color);
     font-size: 0.9rem;
-    margin-bottom: 1rem;
+    margin: 0;
     font-weight: 400;
+    flex: 1;
+    min-width: 0;
 }
 
 .project-description {
@@ -817,7 +834,7 @@ section:last-of-type {
 
 /* Project Detail Page Styles */
 .project-detail {
-    padding: 8rem 0 4rem;
+    padding: 6rem 0 3rem;
     background-color: var(--bg-color);
 }
 
@@ -825,7 +842,7 @@ section:last-of-type {
     color: var(--secondary-color);
     text-decoration: none;
     font-size: 0.95rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     display: inline-block;
     transition: color 0.2s ease;
 }
@@ -835,14 +852,14 @@ section:last-of-type {
 }
 
 .project-detail-header {
-    margin-bottom: 3rem;
+    margin-bottom: 1.5rem;
 }
 
 .project-detail-title {
     font-size: 2rem;
     font-weight: 600;
     color: var(--primary-color);
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     line-height: 1.3;
 }
 
@@ -904,7 +921,7 @@ section:last-of-type {
 }
 
 .project-section {
-    margin-bottom: 3rem;
+    margin-bottom: 1.5rem;
 }
 
 .bullet-list {
@@ -915,8 +932,8 @@ section:last-of-type {
 .bullet-list li {
     padding-left: 1.5rem;
     position: relative;
-    margin-bottom: 1rem;
-    line-height: 1.75;
+    margin-bottom: 0.6rem;
+    line-height: 1.6;
     color: var(--text-color);
 }
 
@@ -937,8 +954,8 @@ section:last-of-type {
     font-size: 1.2rem;
     font-weight: 600;
     color: var(--primary-color);
-    margin-top: 2rem;
-    margin-bottom: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .conclusion-text {
@@ -975,9 +992,36 @@ section:last-of-type {
 
 .abstract-text {
     font-size: 1rem;
-    line-height: 1.75;
+    line-height: 1.6;
     color: var(--text-color);
-    margin-top: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.math-formula {
+    font-family: 'Times New Roman', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    display: inline-block;
+    margin: 0.3rem 0;
+}
+
+.fraction {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    margin: 0 0.2em;
+}
+
+.fraction .numerator {
+    display: block;
+    padding: 0 0.3em;
+    border-bottom: 1px solid currentColor;
+}
+
+.fraction .denominator {
+    display: block;
+    padding: 0 0.3em;
 }
 
 .table-container {
@@ -1091,3 +1135,33 @@ section:last-of-type {
     }
 }
 
+/* Code Console Section */
+.code-console-section {
+    padding: 3rem 0;
+    background-color: var(--bg-color);
+    border-top: 1px solid var(--border-color);
+}
+
+.play-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+.play-button:hover:not(:disabled) {
+    background-color: var(--secondary-color);
+    transform: translateY(-1px);
+}
+
+.play-button:disabled {
+    background-color: #999;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
