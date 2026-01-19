@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapping Market Stress Concentration via Put–Call Ratios | Alexander Rom</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html">AR</a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html#about" class="nav-link">About</a></li>
+                <li><a href="index.html#projects" class="nav-link">Projects</a></li>
+                <li><a href="index.html#experience" class="nav-link">Experience</a></li>
+                <li><a href="index.html#education" class="nav-link">Education</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Project Detail Section -->
+    <section class="project-detail">
+        <div class="container">
+            <div class="project-detail-header">
+                <a href="index.html#projects" class="back-link">← Back to Research & Projects</a>
+                <h1 class="project-detail-title">Mapping Market Stress Concentration via Put–Call Ratios</h1>
+            </div>
+
+            <div class="project-detail-header" style="margin-bottom: 1.5rem; margin-top: 0.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+                <a href="https://github.com/Arom-MFE/pcr-signals" target="_blank" class="project-link-button">GitHub Repository →</a>
+                <a href="#interactive-analysis" class="project-link-button" id="run-live-data-btn">View Snapshot (S&P500) →</a>
+            </div>
+
+            <!-- Overview -->
+            <div class="project-section">
+                <h2 class="section-title">Overview</h2>
+                <p class="abstract-text">This project develops a signal-generating diagnostic framework for identifying where market stress and downside hedging pressure may be concentrating, using option market structure as the analytical lens.</p>
+                <p class="abstract-text">Rather than producing forecasts or trading rules, the framework focuses on mapping stress concentration by decomposing put–call ratios into short-term hedging flow, embedded positioning, and term-structure placement across expirations.</p>
+                <p class="abstract-text">The output consists of interpretable signals designed to highlight where stress may be building, at which maturities, and whether current activity is reinforcing or diverging from existing exposure. These signals are intended to inform broader market analysis and risk assessment, not to serve as standalone conclusions.</p>
+            </div>
+
+            <!-- Data -->
+            <div class="project-section">
+                <h2 class="section-title">Data</h2>
+                <p class="abstract-text">The analysis uses listed index ETF options, sourced live from public option chain data.</p>
+                <p class="abstract-text"><strong>Covered underlyings include:</strong></p>
+                <ul class="bullet-list">
+                    <li><strong>SPY</strong> – S&P 500 (broad U.S. equity market baseline)</li>
+                    <li><strong>QQQ</strong> – Nasdaq-100 (growth and technology exposure)</li>
+                    <li><strong>DIA</strong> – Dow Jones Industrial Average (large-cap industrial / blue-chip tilt)</li>
+                    <li><strong>IWM</strong> – Russell 2000 (small-cap equities)</li>
+                    <li><strong>XLF</strong> – U.S. financial sector</li>
+                    <li><strong>KRE</strong> – U.S. regional banking sector</li>
+                </ul>
+                <p class="abstract-text">These instruments are selected for their liquidity, depth across expirations, and relevance for assessing both broad market and sector-specific stress dynamics.</p>
+                <p class="abstract-text">All outputs are snapshots at the time of execution. The framework does not construct historical datasets or perform backtests.</p>
+            </div>
+
+            <!-- Core Signal Metrics -->
+            <div class="project-section">
+                <h2 class="section-title">Core Signal Metrics</h2>
+                <p class="abstract-text">The framework computes multiple complementary metrics. Each captures a different dimension of market stress.</p>
+
+                <h3 class="subsection-title">Put–Call Ratios (PCR)</h3>
+                <p class="abstract-text">Two distinct put–call ratios are computed.</p>
+                <ul class="bullet-list">
+                    <li><strong>Volume-based PCR (flow)</strong><br>
+                    <span class="math-formula"><i>PCR</i><sub>vol</sub> = <span class="fraction"><span class="numerator">Put Volume</span><span class="denominator">Call Volume</span></span></span><br>
+                    This measure captures short-term hedging demand and is sensitive to events, macro releases, and rapid positioning changes.</li>
+                    <li><strong>Open-interest-based PCR (positioning)</strong><br>
+                    <span class="math-formula"><i>PCR</i><sub>OI</sub> = <span class="fraction"><span class="numerator">Put Open Interest</span><span class="denominator">Call Open Interest</span></span></span><br>
+                    This measure captures embedded downside exposure already sitting on dealer balance sheets and reflects longer-horizon positioning.</li>
+                </ul>
+                <p class="abstract-text">Keeping these measures separate allows the framework to distinguish new hedging activity from existing risk inventory.</p>
+
+                <h3 class="subsection-title">Flow vs Positioning Divergence</h3>
+                <p class="abstract-text"><span class="math-formula"><i>Divergence</i><sub>vol−OI</sub> = <i>PCR</i><sub>vol</sub> − <i>PCR</i><sub>OI</sub></span></p>
+                <p class="abstract-text">This metric compares current flow to existing positioning.</p>
+                <p class="abstract-text"><strong>General signal interpretation:</strong></p>
+                <ul class="bullet-list">
+                    <li>Positive values suggest new hedging flow is more put-heavy than the existing positioning baseline.</li>
+                    <li>Negative values suggest positioning is already skewed toward downside protection relative to current flow.</li>
+                    <li>Divergence highlights changes in stress dynamics, not absolute stress levels.</li>
+                </ul>
+
+                <h3 class="subsection-title">Hedging Impulse</h3>
+                <p class="abstract-text"><span class="math-formula"><i>Impulse</i><sub>vol/OI</sub> = <span class="fraction"><span class="numerator"><i>PCR</i><sub>vol</sub></span><span class="denominator"><i>PCR</i><sub>OI</sub></span></span></span></p>
+                <p class="abstract-text">This ratio measures how aggressive current hedging activity is relative to embedded positioning.</p>
+                <p class="abstract-text"><strong>General interpretation guidelines:</strong></p>
+                <ul class="bullet-list">
+                    <li>Impulse > 1 indicates current flow is more downside-skewed than existing positioning.</li>
+                    <li>Impulse ≫ 1 may signal unusually strong short-term hedging pressure.</li>
+                    <li>Impulse ≈ 1 or below suggests flow is broadly consistent with existing exposure.</li>
+                </ul>
+                <p class="abstract-text">These thresholds are context-dependent and should be calibrated against historical distributions for reliable interpretation.</p>
+
+                <h3 class="subsection-title">Event Score (Stress Concentration Proxy)</h3>
+                <p class="abstract-text"><span class="math-formula"><i>EventScore</i><sub><i>i</i></sub> = (<span class="fraction"><span class="numerator"><i>TotalOI</i><sub><i>i</i></sub></span><span class="denominator">Σ<sub><i>j</i></sub> <i>TotalOI</i><sub><i>j</i></sub></span></span>) × <i>PCR</i><sub>OI,<i>i</i></sub></span></p>
+                <p class="abstract-text">This metric combines:</p>
+                <ul class="bullet-list">
+                    <li>the relative size of open interest at a given expiration, and</li>
+                    <li>the directional skew of that positioning.</li>
+                </ul>
+                <p class="abstract-text"><strong>General interpretation:</strong></p>
+                <ul class="bullet-list">
+                    <li>Higher values indicate expirations that are both large in size and heavily tilted toward downside protection.</li>
+                    <li>Such expirations may represent localized stress concentration or heightened event sensitivity.</li>
+                    <li>This score is designed to highlight where stress matters, not to predict outcomes.</li>
+                </ul>
+
+                <h3 class="subsection-title">Term-Structure Analysis</h3>
+                <p class="abstract-text">Signals are computed at the individual expiration level, preserving full granularity across the option curve.</p>
+                <p class="abstract-text">As an additional summary layer, expirations are aggregated into non-overlapping maturity buckets:</p>
+                <ul class="bullet-list">
+                    <li><strong>short-dated:</strong> 1–20 days</li>
+                    <li><strong>medium-dated:</strong> 21–60 days</li>
+                    <li><strong>longer-dated:</strong> 61–120 days</li>
+                </ul>
+                <p class="abstract-text">Bucketed summaries provide a high-level view of whether stress is concentrated in the near term or extending further along the curve. The per-expiry signals remain the primary analytical output.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Interactive Code Console -->
+    <section id="interactive-analysis" class="code-console-section">
+        <div class="container">
+            <h2 class="section-title">Snapshot Report (SPY)</h2>
+            <p class="abstract-text" style="margin-bottom: 1rem;">Loads the latest saved SPY (S&P 500) options snapshot generated offline from Yahoo Finance data. It aggregates put/call volume and open interest across expirations, computes diagnostic signals (Volume PCR, OI PCR, Impulse, Divergence, Event Score), and shows ranked tables and plots of where downside hedging pressure and positioning are most concentrated. Results are fixed to the timestamp below and do not update automatically. For generating a new snapshot (or running the full multi-index version), use the GitHub link at the top of this page to access the code and reproduce the latest outputs.</p>
+            
+            <div id="console-container">
+                <div id="timestamp-display" style="display: none; padding: 0.5rem; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 1rem; font-family: monospace; font-size: 0.9rem;"></div>
+                <div id="loading-indicator" style="padding: 1rem; text-align: center; color: var(--primary-color);">
+                    <p>Loading snapshot...</p>
+                </div>
+                <div id="output-container" style="display: none; margin-top: 1.5rem;">
+                    <div id="text-output" style="background-color: #f9f9f9; padding: 1rem; border: 1px solid #ddd; border-radius: 4px; max-height: 600px; overflow-y: auto;"></div>
+                    <div id="plot-container" style="margin-top: 1.5rem;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Alexander Rom. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js" defer></script>
+    <script>
+        // Auto-load pre-computed snapshot data on page load
+        async function loadSnapshot() {
+            const loadingIndicator = document.getElementById('loading-indicator');
+            const outputContainer = document.getElementById('output-container');
+            const textOutput = document.getElementById('text-output');
+            const plotContainer = document.getElementById('plot-container');
+            const timestampDisplay = document.getElementById('timestamp-display');
+            
+            loadingIndicator.style.display = 'block';
+            outputContainer.style.display = 'none';
+            textOutput.textContent = '';
+            plotContainer.innerHTML = '';
+            
+            try {
+                // Load snapshot files from root directory (flat structure)
+                let dataResponse;
+                let dataUrl = 'latest_table.json';
+                let plotBaseUrl = '';
+                
+                try {
+                    dataResponse = await fetch(dataUrl);
+                    if (!dataResponse.ok) throw new Error('Snapshot file not found');
+                } catch (e) {
+                    // If local file not found, try loading from GitHub Pages
+                    const repoPath = window.location.pathname.split('/').slice(0, -1).join('/') || '';
+                    dataUrl = repoPath + '/latest_table.json';
+                    plotBaseUrl = repoPath + '/';
+                    dataResponse = await fetch(dataUrl);
+                    if (!dataResponse.ok) {
+                        throw new Error('Snapshot files not available. They are generated automatically via GitHub Actions.');
+                    }
+                }
+                
+                const data = await dataResponse.json();
+                
+                // Show timestamp
+                const timestamp = data.timestamp || new Date().toLocaleString();
+                timestampDisplay.textContent = `Snapshot Time: ${timestamp}`;
+                timestampDisplay.style.display = 'block';
+                
+                // Build HTML output with formatted tables
+                let htmlOutput = `<div style="font-family: 'Fira Code', 'Consolas', monospace; font-size: 0.9rem; line-height: 1.6;">`;
+                htmlOutput += `<h3 style="margin-top: 0; margin-bottom: 1rem; color: var(--primary-color);">PCR by Expiry Signals Report @ ${timestamp}</h3>`;
+                htmlOutput += `<p style="margin-bottom: 1.5rem;"><strong>SPY: Expiries Used = ${data.expiries_used || 'N/A'}</strong></p>`;
+                
+                if (data.top_oi_pcr && data.top_oi_pcr.length > 0) {
+                    htmlOutput += `<h4 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--text-color);">SPY: Top ${data.top_n || 5} expiries by OI_PCR</h4>`;
+                    htmlOutput += formatTableAsHTML(data.top_oi_pcr);
+                }
+                
+                if (data.top_impulse && data.top_impulse.length > 0) {
+                    htmlOutput += `<h4 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--text-color);">SPY: Top ${data.top_n || 5} by Hedging Impulse</h4>`;
+                    htmlOutput += formatTableAsHTML(data.top_impulse);
+                }
+                
+                if (data.top_eventscore && data.top_eventscore.length > 0) {
+                    htmlOutput += `<h4 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--text-color);">SPY: Top ${data.top_n || 5} by Stress Concentration proxy</h4>`;
+                    htmlOutput += formatTableAsHTML(data.top_eventscore);
+                }
+                
+                if (data.concentration_summary) {
+                    htmlOutput += `<h4 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--text-color);">SPY: Concentration Summary</h4>`;
+                    htmlOutput += `<table style="width: 100%; border-collapse: collapse; margin-bottom: 1.5rem;">`;
+                    for (const [key, value] of Object.entries(data.concentration_summary)) {
+                        htmlOutput += `<tr><td style="padding: 0.5rem; border-bottom: 1px solid #eee; font-weight: bold; width: 40%;">${key}</td><td style="padding: 0.5rem; border-bottom: 1px solid #eee;">${value}</td></tr>`;
+                    }
+                    htmlOutput += `</table>`;
+                }
+                
+                if (data.bucket_concentration && data.bucket_concentration.length > 0) {
+                    htmlOutput += `<h4 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--text-color);">SPY: Bucket Concentration Scoring (quality-filtered)</h4>`;
+                    htmlOutput += `<p style="margin-bottom: 0.75rem; color: #666; font-size: 0.9rem;">Bucket_Concentration_Score = Bucket_TotalOI_Share × Bucket_OI_PCR</p>`;
+                    htmlOutput += `<p style="margin-bottom: 1rem; color: #666; font-size: 0.9rem;">Bucket_Concentration_Share normalizes scores across buckets (sums to 1).</p>`;
+                    // Filter to show only concentration-related columns
+                    const concentrationCols = ['Bucket', 'Bucket_TotalOI_Share', 'Bucket_OI_PCR', 'Bucket_Concentration_Score', 'Bucket_Concentration_Share'];
+                    const filteredBuckets = data.bucket_concentration.map(row => {
+                        const filtered = {};
+                        concentrationCols.forEach(key => {
+                            if (row.hasOwnProperty(key)) filtered[key] = row[key];
+                        });
+                        return filtered;
+                    });
+                    htmlOutput += formatTableAsHTML(filteredBuckets);
+                }
+                
+                if (data.bucket_term_structure && data.bucket_term_structure.length > 0) {
+                    htmlOutput += `<h4 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--text-color);">SPY: Term-Structure Buckets (quality-filtered)</h4>`;
+                    htmlOutput += formatTableAsHTML(data.bucket_term_structure);
+                }
+                
+                if (data.per_expiry_table && data.per_expiry_table.length > 0) {
+                    htmlOutput += `<h4 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--text-color);">PER-EXPIRY TOTALS (WITH SIGNALS) — SPY</h4>`;
+                    htmlOutput += formatTableAsHTML(data.per_expiry_table);
+                }
+                
+                htmlOutput += `</div>`;
+                textOutput.innerHTML = htmlOutput;
+                
+                // Load and display plots
+                const plots = [
+                    { url: (plotBaseUrl || '') + 'latest_plot_pcr.png', alt: 'PCR by Expiry' },
+                    { url: (plotBaseUrl || '') + 'latest_plot_impulse.png', alt: 'Hedging Impulse Timeline' },
+                    { url: (plotBaseUrl || '') + 'latest_plot_eventscore.png', alt: 'Event Score Timeline' }
+                ];
+                
+                for (const plot of plots) {
+                    try {
+                        const img = document.createElement('img');
+                        img.src = plot.url;
+                        img.alt = plot.alt;
+                        img.style.cssText = 'max-width: 100%; height: auto; margin-bottom: 1.5rem; display: block;';
+                        img.onerror = () => {
+                            console.warn(`Failed to load ${plot.alt}`);
+                        };
+                        plotContainer.appendChild(img);
+                    } catch (e) {
+                        console.warn(`Error loading ${plot.alt}:`, e);
+                    }
+                }
+                
+                outputContainer.style.display = 'block';
+            } catch (error) {
+                textOutput.innerHTML = `<div style="font-family: 'Fira Code', 'Consolas', monospace; font-size: 0.9rem; padding: 1rem; color: #d32f2f;">
+                    <p style="margin-bottom: 1rem;"><strong>Error:</strong> ${error.message}</p>
+                    <p style="margin-bottom: 1rem; color: #666;">Note: Snapshot files are generated automatically every 6 hours via GitHub Actions.</p>
+                    <p style="color: #666;">To generate your own snapshot, run the code from the GitHub repository:<br>
+                    <a href="https://github.com/Arom-MFE/pcr-signals" target="_blank" style="color: var(--link-color);">https://github.com/Arom-MFE/pcr-signals</a></p>
+                </div>`;
+                outputContainer.style.display = 'block';
+            } finally {
+                loadingIndicator.style.display = 'none';
+            }
+        }
+        
+        // Format table data as HTML table
+        function formatTableAsHTML(tableData) {
+            if (!tableData || !Array.isArray(tableData) || tableData.length === 0) {
+                return '<p style="color: #666; font-style: italic;">(no data available)</p>';
+            }
+            
+            // Get column names from first row
+            const columns = Object.keys(tableData[0]);
+            
+            // Build HTML table
+            let html = '<div style="overflow-x: auto; margin-bottom: 1.5rem;">';
+            html += '<table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 800px;">';
+            
+            // Header row
+            html += '<thead><tr style="background-color: #f5f5f5; border-bottom: 2px solid #ddd;">';
+            columns.forEach(col => {
+                const displayName = col.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                html += `<th style="padding: 0.75rem 0.5rem; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">${displayName}</th>`;
+            });
+            html += '</tr></thead>';
+            
+            // Data rows
+            html += '<tbody>';
+            tableData.forEach((row, idx) => {
+                const bgColor = idx % 2 === 0 ? '#ffffff' : '#fafafa';
+                html += `<tr style="background-color: ${bgColor}; border-bottom: 1px solid #eee;">`;
+                columns.forEach(col => {
+                    let val = row[col];
+                    if (val === null || val === undefined) {
+                        val = '—';
+                    } else if (typeof val === 'number') {
+                        // Format numbers nicely
+                        if (val % 1 === 0) {
+                            val = val.toLocaleString();
+                        } else {
+                            val = val.toLocaleString(undefined, { maximumFractionDigits: 6, minimumFractionDigits: 0 });
+                        }
+                    } else if (typeof val === 'boolean') {
+                        val = val ? '✓' : '✗';
+                    } else {
+                        val = String(val);
+                    }
+                    html += `<td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">${val}</td>`;
+                });
+                html += '</tr>';
+            });
+            html += '</tbody></table></div>';
+            
+            return html;
+        }
+        
+        // Auto-load snapshot on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-load snapshot immediately
+            loadSnapshot();
+            
+            // Handle "View Snapshot" button - scroll to section
+            const viewSnapshotBtn = document.getElementById('run-live-data-btn');
+            if (viewSnapshotBtn) {
+                viewSnapshotBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetSection = document.getElementById('interactive-analysis');
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            }
+            
+            // If page loaded with anchor, scroll to section
+            if (window.location.hash === '#interactive-analysis') {
+                setTimeout(() => {
+                    const targetSection = document.getElementById('interactive-analysis');
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }, 100);
+            }
+        });
+    </script>
+</body>
+</html>

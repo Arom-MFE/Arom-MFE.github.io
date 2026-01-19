@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impact of Banking Competition on Household Loan Rates in the Euro Area | Alexander Rom</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html">AR</a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html#about" class="nav-link">About</a></li>
+                <li><a href="index.html#projects" class="nav-link">Projects</a></li>
+                <li><a href="index.html#experience" class="nav-link">Experience</a></li>
+                <li><a href="index.html#education" class="nav-link">Education</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Project Detail Section -->
+    <section class="project-detail">
+        <div class="container">
+            <div class="project-detail-header">
+                <a href="index.html#projects" class="back-link">← Back to Research & Projects</a>
+                <h1 class="project-detail-title">Impact of Banking Competition on Household Loan Rates in the Euro Area</h1>
+            </div>
+
+            <div class="project-detail-header" style="margin-bottom: 1.5rem; margin-top: 0.5rem;">
+                <a href="https://arxiv.org/pdf/2411.17723" target="_blank" class="project-link-button">Full Paper (PDF) →</a>
+            </div>
+
+            <!-- Abstract -->
+            <div class="project-section">
+                <h2 class="section-title">Abstract</h2>
+                <p class="abstract-text">This paper investigates the impact of banking competition on interest rates for household consumption loans in the Euro Area from 2014 to 2020. Utilizing a panel data regression approach, we analyze how various factors, including local banking competition, influence the interest rates set by banks across 13 Euro-area countries. Our key independent variable, local banking competition, is measured by the number of commercial bank branches per 100,000 adults. Control variables include the ECB interest rate, euro exchange rate, real GDP growth rate, inflation rate, unemployment rate, bank business volumes, and country risk. We address potential endogeneity and heterogeneity biases and employ both Fixed Effects and Hausman–Taylor models to ensure robust results. Our findings indicate that higher local banking competition is associated with a slight increase in interest rates for household loans. Additionally, factors such as ECB interest rate, country risk, and euro appreciation significantly affect interest rates. The results offer insights into how competitive dynamics in the banking sector influence borrowing costs for households, providing valuable implications for policymakers and financial institutions in the Euro Area.</p>
+            </div>
+
+            <!-- Data -->
+            <div class="project-section">
+                <h2 class="section-title">Data</h2>
+                <ul class="bullet-list">
+                    <li><strong>Countries:</strong> 13 Euro-area countries (Austria, Belgium, Finland, France, Germany, Greece, Ireland, Italy, Lithuania, Luxembourg, Portugal, Slovenia, Spain)</li>
+                    <li><strong>Time Period:</strong> 2014–2020 (7 years)</li>
+                    <li><strong>Sample Size:</strong> N = 91 observations (balanced panel)</li>
+                    <li><strong>Outcome Variable:</strong> Bank interest rate for household consumption loans (%)</li>
+                    <li><strong>Key Variable:</strong> Banking competition measured as commercial bank branches per 100,000 adults</li>
+                    <li><strong>Control Variables:</strong> ECB interest rate, Euro exchange rate, Real GDP growth, Inflation (HICP), Unemployment rate, Bank business volumes, Country risk</li>
+                </ul>
+            </div>
+
+            <!-- Methods -->
+            <div class="project-section">
+                <h2 class="section-title">Methods</h2>
+                <ul class="bullet-list">
+                    <li><strong>Panel Data Regression:</strong> Balanced panel with country and time dimensions</li>
+                    <li><strong>Fixed Effects (FE):</strong> Controls for unobserved country-specific heterogeneity</li>
+                    <li><strong>Hausman Test:</strong> Determines appropriateness of FE vs Random Effects (RE)</li>
+                    <li><strong>Hausman–Taylor Model:</strong> Handles time-invariant variables and addresses endogeneity concerns</li>
+                    <li><strong>Robust Standard Errors:</strong> Accounts for heteroskedasticity and potential serial correlation</li>
+                    <li><strong>Specification Tests:</strong> Tests for non-linear relationships (squared inflation term), time trends, and structural breaks (COVID-19 dummy)</li>
+                </ul>
+            </div>
+
+            <!-- Key Results -->
+            <div class="project-section">
+                <h2 class="section-title">Key Results</h2>
+                <ul class="bullet-list">
+                    <li><strong>Competition proxy is positively related to loan rates in the preferred panel specs.</strong> When controlling for country fixed effects, higher branch density (your competition proxy) is associated with a small increase in household loan rates. This result is confirmed in both Fixed Effects and Hausman–Taylor, with similar sign and significance (FE: +0.0548, p=0.048; HT: +0.0469, p=0.045).</li>
+                    <li><strong>Country risk shows a significant negative relationship with loan rates (robust in Hausman–Taylor).</strong> In the Hausman–Taylor model, higher country risk is associated with lower loan rates (the paper discusses this as counterintuitive and offers interpretation).</li>
+                    <li><strong>Lithuania's euro adoption is associated with a large upward level shift in rates.</strong> The euro adoption indicator for Lithuania is highly significant and large in magnitude in both FE/HT discussion (about +3.67 pp in HT), suggesting a meaningful regime shift around adoption.</li>
+                    <li><strong>Macro variables show expected directional effects, but with lower confidence in this writeup.</strong> The conclusion notes that ECB rate increases are associated with higher household loan rates, euro appreciation with slightly lower rates, and COVID-2020 with slightly lower rates, but explicitly flags these as low significance in the Hausman–Taylor discussion.</li>
+                    <li><strong>Interpretation caveat: branch density may not measure "true competition."</strong> The paper itself warns that branches per 100k could reflect banking access/footprint (and costs) rather than competitive structure, which is a plausible reason the sign doesn't match the textbook competition story.</li>
+                </ul>
+                <h3 class="subsection-title">Conclusion</h3>
+                <p class="conclusion-text">Across 13 Euro-area countries, the preferred Fixed Effects model and a Hausman–Taylor robustness check both point to the same headline: higher branch density (used as the competition proxy) is associated with a small increase in household consumption loan rates. At the same time, the results highlight the importance of country-level risk and structural regime shifts (e.g., Lithuania's euro adoption) in explaining cross-country borrowing costs. A key takeaway is interpretability: branch density may proxy for banking footprint and operating costs rather than true competition, so improving the competition measure (e.g., number of licensed institutions or concentration metrics) is the most direct next step.</p>
+            </div>
+
+            <!-- Key Model Outputs -->
+            <div class="project-section">
+                <h2 class="section-title">Key Model Outputs</h2>
+                
+                <!-- OLS Regression Results Table -->
+                <div class="table-container">
+                    <h3 class="table-title">Linear Regression (OLS) Results</h3>
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>Variable</th>
+                                <th>Coefficient</th>
+                                <th>Std. Error</th>
+                                <th>t-value</th>
+                                <th>p-value</th>
+                                <th>Sig</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>BComp (Banking Competition)</td>
+                                <td>-0.05</td>
+                                <td>0.012</td>
+                                <td>-4.16</td>
+                                <td>0.000</td>
+                                <td>***</td>
+                            </tr>
+                            <tr>
+                                <td>BComp_trend</td>
+                                <td>-0.138</td>
+                                <td>0.202</td>
+                                <td>-0.68</td>
+                                <td>0.496</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>GDP (Real GDP Growth)</td>
+                                <td>0.111</td>
+                                <td>0.063</td>
+                                <td>1.75</td>
+                                <td>0.084</td>
+                                <td>*</td>
+                            </tr>
+                            <tr>
+                                <td>INFL (Inflation HICP)</td>
+                                <td>-0.558</td>
+                                <td>0.495</td>
+                                <td>-1.13</td>
+                                <td>0.263</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>INFL_sq (Inflation Squared)</td>
+                                <td>0.362</td>
+                                <td>0.175</td>
+                                <td>2.06</td>
+                                <td>0.042</td>
+                                <td>**</td>
+                            </tr>
+                            <tr>
+                                <td>ALM (Bank Business Volumes)</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>-0.62</td>
+                                <td>0.534</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>U (Unemployment Rate)</td>
+                                <td>0.221</td>
+                                <td>0.069</td>
+                                <td>3.21</td>
+                                <td>0.002</td>
+                                <td>***</td>
+                            </tr>
+                            <tr>
+                                <td>EXCH_rate (Euro Exchange Rate)</td>
+                                <td>-0.064</td>
+                                <td>0.142</td>
+                                <td>-0.45</td>
+                                <td>0.651</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>ECB_rate (ECB Interest Rate)</td>
+                                <td>7.075</td>
+                                <td>11.621</td>
+                                <td>0.61</td>
+                                <td>0.544</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>CR (Country Risk)</td>
+                                <td>-0.036</td>
+                                <td>0.213</td>
+                                <td>-0.17</td>
+                                <td>0.866</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>LITH_2014 (Lithuania Euro Adoption)</td>
+                                <td>8.191</td>
+                                <td>1.98</td>
+                                <td>4.14</td>
+                                <td>0.000</td>
+                                <td>***</td>
+                            </tr>
+                            <tr>
+                                <td>covid_2020 (COVID-19)</td>
+                                <td>0.004</td>
+                                <td>1.103</td>
+                                <td>0.00</td>
+                                <td>0.997</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Constant</td>
+                                <td>15.992</td>
+                                <td>18.265</td>
+                                <td>0.88</td>
+                                <td>0.384</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="table-note">*** p&lt;0.01, ** p&lt;0.05, * p&lt;0.1. Mean dependent var: 6.378, SD dependent var: 2.486, R-squared: 0.504, Number of obs: 91, F-test: 6.596, Prob &gt; F: 0.000, AIC: 385.216, BIC: 417.857.</p>
+                </div>
+
+                <!-- Fixed Effects Regression Results Table -->
+                <div class="table-container">
+                    <h3 class="table-title">Fixed Effects (robust) Results</h3>
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>Variable</th>
+                                <th>Coefficient</th>
+                                <th>Std. Error</th>
+                                <th>t-value</th>
+                                <th>p-value</th>
+                                <th>Sig</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>BComp (Banking Competition)</td>
+                                <td>0.055</td>
+                                <td>0.025</td>
+                                <td>2.20</td>
+                                <td>0.048</td>
+                                <td>**</td>
+                            </tr>
+                            <tr>
+                                <td>BComp_trend</td>
+                                <td>-0.04</td>
+                                <td>0.089</td>
+                                <td>-0.45</td>
+                                <td>0.66</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>GDP (Real GDP Growth)</td>
+                                <td>-0.011</td>
+                                <td>0.026</td>
+                                <td>-0.41</td>
+                                <td>0.689</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>INFL (Inflation HICP)</td>
+                                <td>-0.008</td>
+                                <td>0.332</td>
+                                <td>-0.02</td>
+                                <td>0.981</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>INFL_sq (Inflation Squared)</td>
+                                <td>-0.05</td>
+                                <td>0.089</td>
+                                <td>-0.56</td>
+                                <td>0.589</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>ALM (Bank Business Volumes)</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>-0.44</td>
+                                <td>0.67</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>U (Unemployment Rate)</td>
+                                <td>-0.033</td>
+                                <td>0.087</td>
+                                <td>-0.38</td>
+                                <td>0.71</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>CR (Country Risk)</td>
+                                <td>-0.235</td>
+                                <td>0.058</td>
+                                <td>-4.05</td>
+                                <td>0.002</td>
+                                <td>***</td>
+                            </tr>
+                            <tr>
+                                <td>EXCH_rate (Euro Exchange Rate)</td>
+                                <td>-0.044</td>
+                                <td>0.038</td>
+                                <td>-1.16</td>
+                                <td>0.268</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>ECB_rate (ECB Interest Rate)</td>
+                                <td>4.743</td>
+                                <td>2.878</td>
+                                <td>1.65</td>
+                                <td>0.125</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>LITH_2014 (Lithuania Euro Adoption)</td>
+                                <td>3.635</td>
+                                <td>0.265</td>
+                                <td>13.73</td>
+                                <td>0.000</td>
+                                <td>***</td>
+                            </tr>
+                            <tr>
+                                <td>covid_2020 (COVID-19)</td>
+                                <td>-0.395</td>
+                                <td>0.425</td>
+                                <td>-0.93</td>
+                                <td>0.371</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Constant</td>
+                                <td>10.676</td>
+                                <td>4.066</td>
+                                <td>2.63</td>
+                                <td>0.022</td>
+                                <td>**</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="table-note">*** p&lt;0.01, ** p&lt;0.05, * p&lt;0.1. Robust standard errors. Mean dependent var: 6.378, SD dependent var: 2.486, R-squared: 0.591, Number of obs: 91, AIC: 139.052, BIC: 166.672.</p>
+                </div>
+
+                <!-- Hausman-Taylor Results Table -->
+                <div class="table-container">
+                    <h3 class="table-title">Hausman–Taylor Model Results</h3>
+                    <p class="model-summary">For our Hausman–Taylor model, we get a highly significant Wald chi-squared statistic (equaling 96.14) and p-value = 0.000 which indicates that the model as a whole is statistically significant.</p>
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>Variable</th>
+                                <th>Coefficient</th>
+                                <th>Std. Error</th>
+                                <th>z</th>
+                                <th>P&gt;|z|</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="5" class="variable-group">Time-Varying Exogenous (TVexogenous)</td>
+                            </tr>
+                            <tr>
+                                <td>BComp_trend</td>
+                                <td>-0.0327</td>
+                                <td>0.0674</td>
+                                <td>-0.49</td>
+                                <td>0.627</td>
+                            </tr>
+                            <tr>
+                                <td>ALM (Bank Business Volumes)</td>
+                                <td>-9.77e-06</td>
+                                <td>0.0000135</td>
+                                <td>-0.72</td>
+                                <td>0.469</td>
+                            </tr>
+                            <tr>
+                                <td>ECB_rate (ECB Interest Rate)</td>
+                                <td>4.719</td>
+                                <td>3.416</td>
+                                <td>1.38</td>
+                                <td>0.167</td>
+                            </tr>
+                            <tr>
+                                <td>LITH_2014 (Lithuania Euro Adoption)</td>
+                                <td>3.667</td>
+                                <td>0.631</td>
+                                <td>5.81</td>
+                                <td>0.000</td>
+                            </tr>
+                            <tr>
+                                <td>covid_2020 (COVID-19)</td>
+                                <td>-0.391</td>
+                                <td>0.359</td>
+                                <td>-1.09</td>
+                                <td>0.276</td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" class="variable-group">Time-Varying Endogenous (TVendogenous)</td>
+                            </tr>
+                            <tr>
+                                <td>GDP (Real GDP Growth)</td>
+                                <td>-0.0095</td>
+                                <td>0.0265</td>
+                                <td>-0.36</td>
+                                <td>0.721</td>
+                            </tr>
+                            <tr>
+                                <td>CR (Country Risk)</td>
+                                <td>-0.236</td>
+                                <td>0.097</td>
+                                <td>-2.44</td>
+                                <td>0.015</td>
+                            </tr>
+                            <tr>
+                                <td>INFL (Inflation HICP)</td>
+                                <td>-0.0145</td>
+                                <td>0.164</td>
+                                <td>-0.09</td>
+                                <td>0.930</td>
+                            </tr>
+                            <tr>
+                                <td>INFL_sq (Inflation Squared)</td>
+                                <td>-0.0444</td>
+                                <td>0.0567</td>
+                                <td>-0.78</td>
+                                <td>0.433</td>
+                            </tr>
+                            <tr>
+                                <td>EXCH_rate (Euro Exchange Rate)</td>
+                                <td>-0.0433</td>
+                                <td>0.0435</td>
+                                <td>-1.00</td>
+                                <td>0.320</td>
+                            </tr>
+                            <tr>
+                                <td>U (Unemployment Rate)</td>
+                                <td>-0.0319</td>
+                                <td>0.0623</td>
+                                <td>-0.51</td>
+                                <td>0.609</td>
+                            </tr>
+                            <tr>
+                                <td>BComp (Banking Competition)</td>
+                                <td>0.0469</td>
+                                <td>0.0234</td>
+                                <td>2.00</td>
+                                <td>0.045</td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" class="variable-group">Time-Invariant Exogenous (TIexogenous)</td>
+                            </tr>
+                            <tr>
+                                <td>country_id</td>
+                                <td>0.114</td>
+                                <td>0.212</td>
+                                <td>0.54</td>
+                                <td>0.589</td>
+                            </tr>
+                            <tr>
+                                <td>Constant</td>
+                                <td>9.680</td>
+                                <td>5.844</td>
+                                <td>1.66</td>
+                                <td>0.098</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="table-note">Wald chi² = 96.14, Prob &gt; chi² = 0.000. sigma_u = 2.920, sigma_e = 0.497, rho = 0.972 (fraction of variance due to u_i).</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Alexander Rom. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
