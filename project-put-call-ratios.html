@@ -133,13 +133,14 @@
             <p class="abstract-text" style="margin-bottom: 1rem;">Loads the latest saved SPY (S&P 500) options snapshot generated offline from Yahoo Finance data. It aggregates put/call volume and open interest across expirations, computes diagnostic signals (Volume PCR, OI PCR, Impulse, Divergence, Event Score), and shows ranked tables and plots of where downside hedging pressure and positioning are most concentrated. Results are fixed to the timestamp below and do not update automatically. For generating a new snapshot (or running the full multi-index version), use the GitHub link at the top of this page to access the code and reproduce the latest outputs.</p>
             
             <div id="console-container">
-                <div id="timestamp-display" style="display: none; padding: 0.5rem; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 1rem; font-family: monospace; font-size: 0.9rem;"></div>
-                <div id="loading-indicator" style="padding: 1rem; text-align: center; color: var(--primary-color);">
-                    <p>Loading snapshot...</p>
-                </div>
-                <div id="output-container" style="display: none; margin-top: 1.5rem;">
+                <div id="timestamp-display" style="padding: 0.5rem; background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 1rem; font-family: monospace; font-size: 0.9rem;"></div>
+                <div id="output-container" style="margin-top: 1.5rem;">
                     <div id="text-output" style="background-color: #f9f9f9; padding: 1rem; border: 1px solid #ddd; border-radius: 4px; max-height: 600px; overflow-y: auto;"></div>
-                    <div id="plot-container" style="margin-top: 1.5rem;"></div>
+                    <div id="plot-container" style="margin-top: 1.5rem;">
+                        <img src="latest_plot_pcr.png" alt="PCR by Expiry" style="max-width: 100%; height: auto; margin-bottom: 1.5rem; display: block;">
+                        <img src="latest_plot_impulse.png" alt="Hedging Impulse Timeline" style="max-width: 100%; height: auto; margin-bottom: 1.5rem; display: block;">
+                        <img src="latest_plot_eventscore.png" alt="Event Score Timeline" style="max-width: 100%; height: auto; margin-bottom: 1.5rem; display: block;">
+                    </div>
                 </div>
             </div>
         </div>
@@ -168,30 +169,27 @@
             plotContainer.innerHTML = '';
             
             try {
-                // Load snapshot files from root directory (all files are flat on GitHub Pages)
+                // Load from local snapshots folder first, then fall back to root
                 let dataResponse;
                 let dataUrl = 'latest_table.json';
+                let '';
                 
                 try {
-                    console.log('Attempting to load snapshot from:', dataUrl);
                     dataResponse = await fetch(dataUrl);
-                    console.log('Fetch response status:', dataResponse.status, dataResponse.statusText);
-                    if (!dataResponse.ok) {
-                        throw new Error(`HTTP ${dataResponse.status}: ${dataResponse.statusText}`);
-                    }
+                    if (!dataResponse.ok) throw new Error('Local snapshot not found');
                 } catch (e) {
-                    console.error('Error loading snapshot data:', e);
-                    throw new Error(`Failed to load snapshot data: ${e.message}. Make sure latest_table.json exists in the repository root.`);
+                    // Fall back to root directory
+                    dataUrl = '../latest_table.json';
+                    '../';
+                    try {
+                        dataResponse = await fetch(dataUrl);
+                        if (!dataResponse.ok) throw new Error('Root snapshot not found');
+                    } catch (e2) {
+                        throw new Error('Snapshot files not available. They are generated automatically via GitHub Actions.');
+                    }
                 }
                 
-                let data;
-                try {
-                    data = await dataResponse.json();
-                    console.log('Successfully loaded snapshot data');
-                } catch (e) {
-                    console.error('Error parsing JSON:', e);
-                    throw new Error(`Failed to parse snapshot data as JSON: ${e.message}`);
-                }
+                const data = await dataResponse.json();
                 
                 // Show timestamp
                 const timestamp = data.timestamp || new Date().toLocaleString();
@@ -264,33 +262,26 @@
                 ];
                 
                 for (const plot of plots) {
-                    const img = document.createElement('img');
-                    img.src = plot.url;
-                    img.alt = plot.alt;
-                    img.style.cssText = 'max-width: 100%; height: auto; margin-bottom: 1.5rem; display: block;';
-                    img.onerror = () => {
-                        console.error(`Failed to load ${plot.alt} from ${plot.url}`);
-                        const errorDiv = document.createElement('div');
-                        errorDiv.style.cssText = 'padding: 0.5rem; background-color: #ffebee; border: 1px solid #ef5350; border-radius: 4px; margin-bottom: 1rem; color: #c62828;';
-                        errorDiv.textContent = `⚠️ Failed to load ${plot.alt}. Make sure ${plot.url} exists in the repository root.`;
-                        plotContainer.appendChild(errorDiv);
-                    };
-                    plotContainer.appendChild(img);
+                    try {
+                        const img = document.createElement('img');
+                        img.src = plot.url;
+                        img.alt = plot.alt;
+                        img.style.cssText = 'max-width: 100%; height: auto; margin-bottom: 1.5rem; display: block;';
+                        img.onerror = () => {
+                            console.warn(`Failed to load ${plot.alt}`);
+                        };
+                        plotContainer.appendChild(img);
+                    } catch (e) {
+                        console.warn(`Error loading ${plot.alt}:`, e);
+                    }
                 }
                 
                 outputContainer.style.display = 'block';
             } catch (error) {
-                console.error('Snapshot loading error:', error);
                 textOutput.innerHTML = `<div style="font-family: 'Fira Code', 'Consolas', monospace; font-size: 0.9rem; padding: 1rem; color: #d32f2f;">
                     <p style="margin-bottom: 1rem;"><strong>Error:</strong> ${error.message}</p>
-                    <p style="margin-bottom: 1rem; color: #666;">Please ensure the following files exist in your repository root:</p>
-                    <ul style="color: #666; margin-left: 1.5rem;">
-                        <li>latest_table.json</li>
-                        <li>latest_plot_pcr.png</li>
-                        <li>latest_plot_impulse.png</li>
-                        <li>latest_plot_eventscore.png</li>
-                    </ul>
-                    <p style="margin-top: 1rem; color: #666;">To generate snapshot files, run the code from the GitHub repository:<br>
+                    <p style="margin-bottom: 1rem; color: #666;">Note: Snapshot files are generated automatically every 6 hours via GitHub Actions.</p>
+                    <p style="color: #666;">To generate your own snapshot, run the code from the GitHub repository:<br>
                     <a href="https://github.com/Arom-MFE/pcr-signals" target="_blank" style="color: var(--link-color);">https://github.com/Arom-MFE/pcr-signals</a></p>
                 </div>`;
                 outputContainer.style.display = 'block';
@@ -379,4 +370,947 @@
         });
     </script>
 </body>
+</html><script src="script.js" defer></script>
+    <script>
+        // Embedded snapshot data - always available (no async loading needed)
+        const SNAPSHOT_DATA = {
+        "timestamp": "2026-01-18 21:05:19",
+        "symbol": "SPY",
+        "expiries_used": 28,
+        "expiries_requested": 28,
+        "top_n": 5,
+        "top_oi_pcr": [
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2026-02-13",
+                        "OI_PCR": 8.216722,
+                        "Volume_PCR": 1.122046,
+                        "Put_OI": 393885,
+                        "Call_OI": 47937,
+                        "Total_OI": 441822,
+                        "Put_Volume": 16144,
+                        "Call_Volume": 14388,
+                        "DTE": 26,
+                        "Divergence_Vol_minus_OI": -7.094676,
+                        "Impulse_Vol_over_OI": 0.136556,
+                        "EventScore_OIshare_x_OI_PCR": 0.27458917,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2026-02-20",
+                        "OI_PCR": 5.460918,
+                        "Volume_PCR": 2.670852,
+                        "Put_OI": 1719075,
+                        "Call_OI": 314796,
+                        "Total_OI": 2033871,
+                        "Put_Volume": 174866,
+                        "Call_Volume": 65472,
+                        "DTE": 33,
+                        "Divergence_Vol_minus_OI": -2.790066,
+                        "Impulse_Vol_over_OI": 0.489085,
+                        "EventScore_OIshare_x_OI_PCR": 0.84009138,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2026-02-06",
+                        "OI_PCR": 4.701775,
+                        "Volume_PCR": 1.43778,
+                        "Put_OI": 541038,
+                        "Call_OI": 115071,
+                        "Total_OI": 656109,
+                        "Put_Volume": 52594,
+                        "Call_Volume": 36580,
+                        "DTE": 19,
+                        "Divergence_Vol_minus_OI": -3.263995,
+                        "Impulse_Vol_over_OI": 0.305795,
+                        "EventScore_OIshare_x_OI_PCR": 0.23333254,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2026-02-27",
+                        "OI_PCR": 4.372843,
+                        "Volume_PCR": 1.166223,
+                        "Put_OI": 517902,
+                        "Call_OI": 118436,
+                        "Total_OI": 636338,
+                        "Put_Volume": 13583,
+                        "Call_Volume": 11647,
+                        "DTE": 40,
+                        "Divergence_Vol_minus_OI": -3.20662,
+                        "Impulse_Vol_over_OI": 0.266697,
+                        "EventScore_OIshare_x_OI_PCR": 0.21046952,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2026-01-30",
+                        "OI_PCR": 3.869271,
+                        "Volume_PCR": 3.58833,
+                        "Put_OI": 1147765,
+                        "Call_OI": 296636,
+                        "Total_OI": 1444401,
+                        "Put_Volume": 244943,
+                        "Call_Volume": 68261,
+                        "DTE": 12,
+                        "Divergence_Vol_minus_OI": -0.280941,
+                        "Impulse_Vol_over_OI": 0.927392,
+                        "EventScore_OIshare_x_OI_PCR": 0.42272156,
+                        "Quality_OK": true
+                }
+        ],
+        "top_impulse": [
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2028-06-16",
+                        "DTE": 880,
+                        "Volume_PCR": 1.842217,
+                        "OI_PCR": 0.379906,
+                        "Divergence_Vol_minus_OI": 1.462311,
+                        "Impulse_Vol_over_OI": 4.849139,
+                        "EventScore_OIshare_x_OI_PCR": 0.00093142,
+                        "Put_OI": 8924,
+                        "Call_OI": 23490,
+                        "Total_OI": 32414,
+                        "Put_Volume": 7811,
+                        "Call_Volume": 4240,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2026-12-31",
+                        "DTE": 347,
+                        "Volume_PCR": 6.600583,
+                        "OI_PCR": 1.492521,
+                        "Divergence_Vol_minus_OI": 5.108062,
+                        "Impulse_Vol_over_OI": 4.422439,
+                        "EventScore_OIshare_x_OI_PCR": 0.00237036,
+                        "Put_OI": 12573,
+                        "Call_OI": 8424,
+                        "Total_OI": 20997,
+                        "Put_Volume": 4528,
+                        "Call_Volume": 686,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2027-03-19",
+                        "DTE": 425,
+                        "Volume_PCR": 1.602388,
+                        "OI_PCR": 0.500756,
+                        "Divergence_Vol_minus_OI": 1.101632,
+                        "Impulse_Vol_over_OI": 3.199938,
+                        "EventScore_OIshare_x_OI_PCR": 0.00507337,
+                        "Put_OI": 44694,
+                        "Call_OI": 89253,
+                        "Total_OI": 133947,
+                        "Put_Volume": 4429,
+                        "Call_Volume": 2764,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2026-06-30",
+                        "DTE": 163,
+                        "Volume_PCR": 4.257325,
+                        "OI_PCR": 1.459381,
+                        "Divergence_Vol_minus_OI": 2.797944,
+                        "Impulse_Vol_over_OI": 2.917213,
+                        "EventScore_OIshare_x_OI_PCR": 0.01362757,
+                        "Put_OI": 73258,
+                        "Call_OI": 50198,
+                        "Total_OI": 123456,
+                        "Put_Volume": 6684,
+                        "Call_Volume": 1570,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2027-01-15",
+                        "DTE": 362,
+                        "Volume_PCR": 1.893491,
+                        "OI_PCR": 0.938257,
+                        "Divergence_Vol_minus_OI": 0.955234,
+                        "Impulse_Vol_over_OI": 2.018094,
+                        "EventScore_OIshare_x_OI_PCR": 0.04200557,
+                        "Put_OI": 286522,
+                        "Call_OI": 305377,
+                        "Total_OI": 591899,
+                        "Put_Volume": 12160,
+                        "Call_Volume": 6422,
+                        "Quality_OK": true
+                }
+        ],
+        "top_eventscore": [
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2026-02-20",
+                        "DTE": 33,
+                        "Volume_PCR": 2.670852,
+                        "OI_PCR": 5.460918,
+                        "Divergence_Vol_minus_OI": -2.790066,
+                        "Impulse_Vol_over_OI": 0.489085,
+                        "EventScore_OIshare_x_OI_PCR": 0.84009138,
+                        "Put_OI": 1719075,
+                        "Call_OI": 314796,
+                        "Total_OI": 2033871,
+                        "Put_Volume": 174866,
+                        "Call_Volume": 65472,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2026-01-30",
+                        "DTE": 12,
+                        "Volume_PCR": 3.58833,
+                        "OI_PCR": 3.869271,
+                        "Divergence_Vol_minus_OI": -0.280941,
+                        "Impulse_Vol_over_OI": 0.927392,
+                        "EventScore_OIshare_x_OI_PCR": 0.42272156,
+                        "Put_OI": 1147765,
+                        "Call_OI": 296636,
+                        "Total_OI": 1444401,
+                        "Put_Volume": 244943,
+                        "Call_Volume": 68261,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2026-03-20",
+                        "DTE": 61,
+                        "Volume_PCR": 2.786281,
+                        "OI_PCR": 2.396011,
+                        "Divergence_Vol_minus_OI": 0.39027,
+                        "Impulse_Vol_over_OI": 1.162883,
+                        "EventScore_OIshare_x_OI_PCR": 0.32221523,
+                        "Put_OI": 1254410,
+                        "Call_OI": 523541,
+                        "Total_OI": 1777951,
+                        "Put_Volume": 87492,
+                        "Call_Volume": 31401,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2026-02-13",
+                        "DTE": 26,
+                        "Volume_PCR": 1.122046,
+                        "OI_PCR": 8.216722,
+                        "Divergence_Vol_minus_OI": -7.094676,
+                        "Impulse_Vol_over_OI": 0.136556,
+                        "EventScore_OIshare_x_OI_PCR": 0.27458917,
+                        "Put_OI": 393885,
+                        "Call_OI": 47937,
+                        "Total_OI": 441822,
+                        "Put_Volume": 16144,
+                        "Call_Volume": 14388,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2026-01-23",
+                        "DTE": 5,
+                        "Volume_PCR": 1.284526,
+                        "OI_PCR": 3.323133,
+                        "Divergence_Vol_minus_OI": -2.038607,
+                        "Impulse_Vol_over_OI": 0.386541,
+                        "EventScore_OIshare_x_OI_PCR": 0.24694113,
+                        "Put_OI": 755192,
+                        "Call_OI": 227253,
+                        "Total_OI": 982445,
+                        "Put_Volume": 215356,
+                        "Call_Volume": 167654,
+                        "Quality_OK": true
+                }
+        ],
+        "concentration_summary": {
+                "Sum_Total_OI": 13220946,
+                "Top3_TotalOIShare": 0.397568
+        },
+        "bucket_concentration": [
+                {
+                        "Bucket": "Short_1_20",
+                        "DTE_Min": 1,
+                        "DTE_Max": 20,
+                        "Sum_Put_OI": 2666694,
+                        "Sum_Call_OI": 889517,
+                        "Bucket_OI_PCR": 2.997912,
+                        "Sum_Put_Volume": 1260873,
+                        "Sum_Call_Volume": 947845,
+                        "Bucket_Volume_PCR": 1.330252,
+                        "Bucket_TotalOI": 3556211,
+                        "Bucket_TotalOI_Share": 0.268983,
+                        "Bucket_Concentration_Score": 0.80638736,
+                        "Bucket_Concentration_Share": 0.319817
+                },
+                {
+                        "Bucket": "Mid_21_60",
+                        "DTE_Min": 21,
+                        "DTE_Max": 60,
+                        "Sum_Put_OI": 2630862,
+                        "Sum_Call_OI": 481169,
+                        "Bucket_OI_PCR": 5.467647,
+                        "Sum_Put_Volume": 204593,
+                        "Sum_Call_Volume": 91507,
+                        "Bucket_Volume_PCR": 2.235818,
+                        "Bucket_TotalOI": 3112031,
+                        "Bucket_TotalOI_Share": 0.235386,
+                        "Bucket_Concentration_Score": 1.28700756,
+                        "Bucket_Concentration_Share": 0.510434
+                },
+                {
+                        "Bucket": "Long_61_120",
+                        "DTE_Min": 61,
+                        "DTE_Max": 120,
+                        "Sum_Put_OI": 1755600,
+                        "Sum_Call_OI": 789673,
+                        "Bucket_OI_PCR": 2.223199,
+                        "Sum_Put_Volume": 119904,
+                        "Sum_Call_Volume": 49020,
+                        "Bucket_Volume_PCR": 2.446022,
+                        "Bucket_TotalOI": 2545273,
+                        "Bucket_TotalOI_Share": 0.192518,
+                        "Bucket_Concentration_Score": 0.42800583,
+                        "Bucket_Concentration_Share": 0.169749
+                }
+        ],
+        "bucket_term_structure": [
+                {
+                        "Bucket": "Short_1_20",
+                        "DTE_Min": 1,
+                        "DTE_Max": 20,
+                        "Sum_Put_OI": 2666694,
+                        "Sum_Call_OI": 889517,
+                        "Bucket_OI_PCR": 2.997912,
+                        "Sum_Put_Volume": 1260873,
+                        "Sum_Call_Volume": 947845,
+                        "Bucket_Volume_PCR": 1.330252,
+                        "Bucket_TotalOI": 3556211,
+                        "Bucket_TotalOI_Share": 0.268983,
+                        "Bucket_Concentration_Score": 0.80638736,
+                        "Bucket_Concentration_Share": 0.319817
+                },
+                {
+                        "Bucket": "Mid_21_60",
+                        "DTE_Min": 21,
+                        "DTE_Max": 60,
+                        "Sum_Put_OI": 2630862,
+                        "Sum_Call_OI": 481169,
+                        "Bucket_OI_PCR": 5.467647,
+                        "Sum_Put_Volume": 204593,
+                        "Sum_Call_Volume": 91507,
+                        "Bucket_Volume_PCR": 2.235818,
+                        "Bucket_TotalOI": 3112031,
+                        "Bucket_TotalOI_Share": 0.235386,
+                        "Bucket_Concentration_Score": 1.28700756,
+                        "Bucket_Concentration_Share": 0.510434
+                },
+                {
+                        "Bucket": "Long_61_120",
+                        "DTE_Min": 61,
+                        "DTE_Max": 120,
+                        "Sum_Put_OI": 1755600,
+                        "Sum_Call_OI": 789673,
+                        "Bucket_OI_PCR": 2.223199,
+                        "Sum_Put_Volume": 119904,
+                        "Sum_Call_Volume": 49020,
+                        "Bucket_Volume_PCR": 2.446022,
+                        "Bucket_TotalOI": 2545273,
+                        "Bucket_TotalOI_Share": 0.192518,
+                        "Bucket_Concentration_Score": 0.42800583,
+                        "Bucket_Concentration_Share": 0.169749
+                }
+        ],
+        "per_expiry_table": [
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2026-01-20",
+                        "DTE": 2,
+                        "Put_Volume": 577739,
+                        "Call_Volume": 504219,
+                        "Volume_PCR": 1.14581,
+                        "Put_OI": 89404,
+                        "Call_OI": 114457,
+                        "OI_PCR": 0.781114,
+                        "Total_OI": 203861,
+                        "Divergence_Vol_minus_OI": 0.364696,
+                        "Impulse_Vol_over_OI": 1.466892,
+                        "EventScore_OIshare_x_OI_PCR": 0.01204442,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2026-01-21",
+                        "DTE": 3,
+                        "Put_Volume": 95361,
+                        "Call_Volume": 103696,
+                        "Volume_PCR": 0.919621,
+                        "Put_OI": 73341,
+                        "Call_OI": 80872,
+                        "OI_PCR": 0.906878,
+                        "Total_OI": 154213,
+                        "Divergence_Vol_minus_OI": 0.012743,
+                        "Impulse_Vol_over_OI": 1.014052,
+                        "EventScore_OIshare_x_OI_PCR": 0.01057809,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2026-01-22",
+                        "DTE": 4,
+                        "Put_Volume": 62946,
+                        "Call_Volume": 56533,
+                        "Volume_PCR": 1.113438,
+                        "Put_OI": 50846,
+                        "Call_OI": 45129,
+                        "OI_PCR": 1.126681,
+                        "Total_OI": 95975,
+                        "Divergence_Vol_minus_OI": -0.013243,
+                        "Impulse_Vol_over_OI": 0.988246,
+                        "EventScore_OIshare_x_OI_PCR": 0.00817893,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2026-01-23",
+                        "DTE": 5,
+                        "Put_Volume": 215356,
+                        "Call_Volume": 167654,
+                        "Volume_PCR": 1.284526,
+                        "Put_OI": 755192,
+                        "Call_OI": 227253,
+                        "OI_PCR": 3.323133,
+                        "Total_OI": 982445,
+                        "Divergence_Vol_minus_OI": -2.038607,
+                        "Impulse_Vol_over_OI": 0.386541,
+                        "EventScore_OIshare_x_OI_PCR": 0.24694113,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2026-01-26",
+                        "DTE": 8,
+                        "Put_Volume": 11934,
+                        "Call_Volume": 10902,
+                        "Volume_PCR": 1.094662,
+                        "Put_OI": 9108,
+                        "Call_OI": 10099,
+                        "OI_PCR": 0.901871,
+                        "Total_OI": 19207,
+                        "Divergence_Vol_minus_OI": 0.192791,
+                        "Impulse_Vol_over_OI": 1.213768,
+                        "EventScore_OIshare_x_OI_PCR": 0.00131021,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2026-01-30",
+                        "DTE": 12,
+                        "Put_Volume": 244943,
+                        "Call_Volume": 68261,
+                        "Volume_PCR": 3.58833,
+                        "Put_OI": 1147765,
+                        "Call_OI": 296636,
+                        "OI_PCR": 3.869271,
+                        "Total_OI": 1444401,
+                        "Divergence_Vol_minus_OI": -0.280941,
+                        "Impulse_Vol_over_OI": 0.927392,
+                        "EventScore_OIshare_x_OI_PCR": 0.42272156,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2026-02-06",
+                        "DTE": 19,
+                        "Put_Volume": 52594,
+                        "Call_Volume": 36580,
+                        "Volume_PCR": 1.43778,
+                        "Put_OI": 541038,
+                        "Call_OI": 115071,
+                        "OI_PCR": 4.701775,
+                        "Total_OI": 656109,
+                        "Divergence_Vol_minus_OI": -3.263995,
+                        "Impulse_Vol_over_OI": 0.305795,
+                        "EventScore_OIshare_x_OI_PCR": 0.23333254,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2026-02-13",
+                        "DTE": 26,
+                        "Put_Volume": 16144,
+                        "Call_Volume": 14388,
+                        "Volume_PCR": 1.122046,
+                        "Put_OI": 393885,
+                        "Call_OI": 47937,
+                        "OI_PCR": 8.216722,
+                        "Total_OI": 441822,
+                        "Divergence_Vol_minus_OI": -7.094676,
+                        "Impulse_Vol_over_OI": 0.136556,
+                        "EventScore_OIshare_x_OI_PCR": 0.27458917,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2026-02-20",
+                        "DTE": 33,
+                        "Put_Volume": 174866,
+                        "Call_Volume": 65472,
+                        "Volume_PCR": 2.670852,
+                        "Put_OI": 1719075,
+                        "Call_OI": 314796,
+                        "OI_PCR": 5.460918,
+                        "Total_OI": 2033871,
+                        "Divergence_Vol_minus_OI": -2.790066,
+                        "Impulse_Vol_over_OI": 0.489085,
+                        "EventScore_OIshare_x_OI_PCR": 0.84009138,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2026-02-27",
+                        "DTE": 40,
+                        "Put_Volume": 13583,
+                        "Call_Volume": 11647,
+                        "Volume_PCR": 1.166223,
+                        "Put_OI": 517902,
+                        "Call_OI": 118436,
+                        "OI_PCR": 4.372843,
+                        "Total_OI": 636338,
+                        "Divergence_Vol_minus_OI": -3.20662,
+                        "Impulse_Vol_over_OI": 0.266697,
+                        "EventScore_OIshare_x_OI_PCR": 0.21046952,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2026-03-20",
+                        "DTE": 61,
+                        "Put_Volume": 87492,
+                        "Call_Volume": 31401,
+                        "Volume_PCR": 2.786281,
+                        "Put_OI": 1254410,
+                        "Call_OI": 523541,
+                        "OI_PCR": 2.396011,
+                        "Total_OI": 1777951,
+                        "Divergence_Vol_minus_OI": 0.39027,
+                        "Impulse_Vol_over_OI": 1.162883,
+                        "EventScore_OIshare_x_OI_PCR": 0.32221523,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2026-03-31",
+                        "DTE": 72,
+                        "Put_Volume": 11669,
+                        "Call_Volume": 9494,
+                        "Volume_PCR": 1.229092,
+                        "Put_OI": 271642,
+                        "Call_OI": 144349,
+                        "OI_PCR": 1.881842,
+                        "Total_OI": 415991,
+                        "Divergence_Vol_minus_OI": -0.65275,
+                        "Impulse_Vol_over_OI": 0.653132,
+                        "EventScore_OIshare_x_OI_PCR": 0.0592113,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2026-04-17",
+                        "DTE": 89,
+                        "Put_Volume": 18893,
+                        "Call_Volume": 5308,
+                        "Volume_PCR": 3.559344,
+                        "Put_OI": 89216,
+                        "Call_OI": 31157,
+                        "OI_PCR": 2.863434,
+                        "Total_OI": 120373,
+                        "Divergence_Vol_minus_OI": 0.69591,
+                        "Impulse_Vol_over_OI": 1.243033,
+                        "EventScore_OIshare_x_OI_PCR": 0.02607076,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2026-04-30",
+                        "DTE": 102,
+                        "Put_Volume": 1850,
+                        "Call_Volume": 2817,
+                        "Volume_PCR": 0.656727,
+                        "Put_OI": 140332,
+                        "Call_OI": 90626,
+                        "OI_PCR": 1.548474,
+                        "Total_OI": 230958,
+                        "Divergence_Vol_minus_OI": -0.891747,
+                        "Impulse_Vol_over_OI": 0.424112,
+                        "EventScore_OIshare_x_OI_PCR": 0.02705044,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2026-05-29",
+                        "DTE": 131,
+                        "Put_Volume": 1806,
+                        "Call_Volume": 846,
+                        "Volume_PCR": 2.134752,
+                        "Put_OI": 41824,
+                        "Call_OI": 14954,
+                        "OI_PCR": 2.796844,
+                        "Total_OI": 56778,
+                        "Divergence_Vol_minus_OI": -0.662092,
+                        "Impulse_Vol_over_OI": 0.763272,
+                        "EventScore_OIshare_x_OI_PCR": 0.01201118,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2026-06-18",
+                        "DTE": 151,
+                        "Put_Volume": 24562,
+                        "Call_Volume": 7493,
+                        "Volume_PCR": 3.277993,
+                        "Put_OI": 878245,
+                        "Call_OI": 362277,
+                        "OI_PCR": 2.424236,
+                        "Total_OI": 1240522,
+                        "Divergence_Vol_minus_OI": 0.853757,
+                        "Impulse_Vol_over_OI": 1.352176,
+                        "EventScore_OIshare_x_OI_PCR": 0.22746618,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2026-06-30",
+                        "DTE": 163,
+                        "Put_Volume": 6684,
+                        "Call_Volume": 1570,
+                        "Volume_PCR": 4.257325,
+                        "Put_OI": 73258,
+                        "Call_OI": 50198,
+                        "OI_PCR": 1.459381,
+                        "Total_OI": 123456,
+                        "Divergence_Vol_minus_OI": 2.797944,
+                        "Impulse_Vol_over_OI": 2.917213,
+                        "EventScore_OIshare_x_OI_PCR": 0.01362757,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2026-09-18",
+                        "DTE": 243,
+                        "Put_Volume": 1501,
+                        "Call_Volume": 4441,
+                        "Volume_PCR": 0.337987,
+                        "Put_OI": 245642,
+                        "Call_OI": 262734,
+                        "OI_PCR": 0.934946,
+                        "Total_OI": 508376,
+                        "Divergence_Vol_minus_OI": -0.596959,
+                        "Impulse_Vol_over_OI": 0.361504,
+                        "EventScore_OIshare_x_OI_PCR": 0.03595084,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2026-09-30",
+                        "DTE": 255,
+                        "Put_Volume": 1808,
+                        "Call_Volume": 3496,
+                        "Volume_PCR": 0.517162,
+                        "Put_OI": 30638,
+                        "Call_OI": 38551,
+                        "OI_PCR": 0.794739,
+                        "Total_OI": 69189,
+                        "Divergence_Vol_minus_OI": -0.277577,
+                        "Impulse_Vol_over_OI": 0.650732,
+                        "EventScore_OIshare_x_OI_PCR": 0.0041591,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2026-12-18",
+                        "DTE": 334,
+                        "Put_Volume": 6041,
+                        "Call_Volume": 3297,
+                        "Volume_PCR": 1.832272,
+                        "Put_OI": 438764,
+                        "Call_OI": 301185,
+                        "OI_PCR": 1.456792,
+                        "Total_OI": 739949,
+                        "Divergence_Vol_minus_OI": 0.37548,
+                        "Impulse_Vol_over_OI": 1.257744,
+                        "EventScore_OIshare_x_OI_PCR": 0.08153363,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2026-12-31",
+                        "DTE": 347,
+                        "Put_Volume": 4528,
+                        "Call_Volume": 686,
+                        "Volume_PCR": 6.600583,
+                        "Put_OI": 12573,
+                        "Call_OI": 8424,
+                        "OI_PCR": 1.492521,
+                        "Total_OI": 20997,
+                        "Divergence_Vol_minus_OI": 5.108062,
+                        "Impulse_Vol_over_OI": 4.422439,
+                        "EventScore_OIshare_x_OI_PCR": 0.00237036,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2027-01-15",
+                        "DTE": 362,
+                        "Put_Volume": 12160,
+                        "Call_Volume": 6422,
+                        "Volume_PCR": 1.893491,
+                        "Put_OI": 286522,
+                        "Call_OI": 305377,
+                        "OI_PCR": 0.938257,
+                        "Total_OI": 591899,
+                        "Divergence_Vol_minus_OI": 0.955234,
+                        "Impulse_Vol_over_OI": 2.018094,
+                        "EventScore_OIshare_x_OI_PCR": 0.04200557,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2027-03-19",
+                        "DTE": 425,
+                        "Put_Volume": 4429,
+                        "Call_Volume": 2764,
+                        "Volume_PCR": 1.602388,
+                        "Put_OI": 44694,
+                        "Call_OI": 89253,
+                        "OI_PCR": 0.500756,
+                        "Total_OI": 133947,
+                        "Divergence_Vol_minus_OI": 1.101632,
+                        "Impulse_Vol_over_OI": 3.199938,
+                        "EventScore_OIshare_x_OI_PCR": 0.00507337,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2027-06-17",
+                        "DTE": 515,
+                        "Put_Volume": 2526,
+                        "Call_Volume": 4687,
+                        "Volume_PCR": 0.538937,
+                        "Put_OI": 28115,
+                        "Call_OI": 26681,
+                        "OI_PCR": 1.053746,
+                        "Total_OI": 54796,
+                        "Divergence_Vol_minus_OI": -0.514809,
+                        "Impulse_Vol_over_OI": 0.511449,
+                        "EventScore_OIshare_x_OI_PCR": 0.00436739,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2027-12-17",
+                        "DTE": 698,
+                        "Put_Volume": 5650,
+                        "Call_Volume": 1764,
+                        "Volume_PCR": 3.202948,
+                        "Put_OI": 196135,
+                        "Call_OI": 120314,
+                        "OI_PCR": 1.630193,
+                        "Total_OI": 316449,
+                        "Divergence_Vol_minus_OI": 1.572755,
+                        "Impulse_Vol_over_OI": 1.964766,
+                        "EventScore_OIshare_x_OI_PCR": 0.03901937,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2028-01-21",
+                        "DTE": 733,
+                        "Put_Volume": 6248,
+                        "Call_Volume": 2464,
+                        "Volume_PCR": 2.535714,
+                        "Put_OI": 58426,
+                        "Call_OI": 43559,
+                        "OI_PCR": 1.341307,
+                        "Total_OI": 101985,
+                        "Divergence_Vol_minus_OI": 1.194407,
+                        "Impulse_Vol_over_OI": 1.89048,
+                        "EventScore_OIshare_x_OI_PCR": 0.0103467,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2028-06-16",
+                        "DTE": 880,
+                        "Put_Volume": 7811,
+                        "Call_Volume": 4240,
+                        "Volume_PCR": 1.842217,
+                        "Put_OI": 8924,
+                        "Call_OI": 23490,
+                        "OI_PCR": 0.379906,
+                        "Total_OI": 32414,
+                        "Divergence_Vol_minus_OI": 1.462311,
+                        "Impulse_Vol_over_OI": 4.849139,
+                        "EventScore_OIshare_x_OI_PCR": 0.00093142,
+                        "Quality_OK": true
+                },
+                {
+                        "Symbol": "SPY",
+                        "Expiry": "2028-12-15",
+                        "DTE": 1062,
+                        "Put_Volume": 1130,
+                        "Call_Volume": 2437,
+                        "Volume_PCR": 0.463685,
+                        "Put_OI": 6527,
+                        "Call_OI": 10147,
+                        "OI_PCR": 0.643244,
+                        "Total_OI": 16674,
+                        "Divergence_Vol_minus_OI": -0.179559,
+                        "Impulse_Vol_over_OI": 0.720854,
+                        "EventScore_OIshare_x_OI_PCR": 0.00081125,
+                        "Quality_OK": true
+                }
+        ]
+};
+
+        // Format table data as HTML table
+        function formatTableAsHTML(tableData) {
+            if (!tableData || !Array.isArray(tableData) || tableData.length === 0) {
+                return '<p style="color: #666; font-style: italic;">(no data available)</p>';
+            }
+            
+            const columns = Object.keys(tableData[0]);
+            let html = '<div style="overflow-x: auto; margin-bottom: 1.5rem;">';
+            html += '<table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 800px;">';
+            
+            html += '<thead><tr style="background-color: #f5f5f5; border-bottom: 2px solid #ddd;">';
+            columns.forEach(col => {
+                const displayName = col.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                html += `<th style="padding: 0.75rem 0.5rem; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">${displayName}</th>`;
+            });
+            html += '</tr></thead><tbody>';
+            
+            tableData.forEach((row, idx) => {
+                const bgColor = idx % 2 === 0 ? '#ffffff' : '#fafafa';
+                html += `<tr style="background-color: ${bgColor}; border-bottom: 1px solid #eee;">`;
+                columns.forEach(col => {
+                    let val = row[col];
+                    if (val === null || val === undefined) {
+                        val = '—';
+                    } else if (typeof val === 'number') {
+                        if (val % 1 === 0) {
+                            val = val.toLocaleString();
+                        } else {
+                            val = val.toLocaleString(undefined, { maximumFractionDigits: 6, minimumFractionDigits: 0 });
+                        }
+                    } else if (typeof val === 'boolean') {
+                        val = val ? '✓' : '✗';
+                    } else {
+                        val = String(val);
+                    }
+                    html += `<td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">${val}</td>`;
+                });
+                html += '</tr>';
+            });
+            html += '</tbody></table></div>';
+            return html;
+        }
+        
+        // Render snapshot data immediately (synchronous, no async loading)
+        function renderSnapshot() {
+            const data = SNAPSHOT_DATA;
+            const timestampDisplay = document.getElementById('timestamp-display');
+            const textOutput = document.getElementById('text-output');
+            
+            // Show timestamp
+            const timestamp = data.timestamp || new Date().toLocaleString();
+            timestampDisplay.textContent = `Snapshot Time: ${timestamp}`;
+            
+            // Build HTML output
+            let htmlOutput = `<div style="font-family: 'Fira Code', 'Consolas', monospace; font-size: 0.9rem; line-height: 1.6;">`;
+            htmlOutput += `<h3 style="margin-top: 0; margin-bottom: 1rem; color: var(--primary-color);">PCR by Expiry Signals Report @ ${timestamp}</h3>`;
+            htmlOutput += `<p style="margin-bottom: 1.5rem;"><strong>SPY: Expiries Used = ${data.expiries_used || 'N/A'}</strong></p>`;
+            
+            if (data.top_oi_pcr && data.top_oi_pcr.length > 0) {
+                htmlOutput += `<h4 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--text-color);">SPY: Top ${data.top_n || 5} expiries by OI_PCR</h4>`;
+                htmlOutput += formatTableAsHTML(data.top_oi_pcr);
+            }
+            
+            if (data.top_impulse && data.top_impulse.length > 0) {
+                htmlOutput += `<h4 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--text-color);">SPY: Top ${data.top_n || 5} by Hedging Impulse</h4>`;
+                htmlOutput += formatTableAsHTML(data.top_impulse);
+            }
+            
+            if (data.top_eventscore && data.top_eventscore.length > 0) {
+                htmlOutput += `<h4 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--text-color);">SPY: Top ${data.top_n || 5} by Stress Concentration proxy</h4>`;
+                htmlOutput += formatTableAsHTML(data.top_eventscore);
+            }
+            
+            if (data.concentration_summary) {
+                htmlOutput += `<h4 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--text-color);">SPY: Concentration Summary</h4>`;
+                htmlOutput += `<table style="width: 100%; border-collapse: collapse; margin-bottom: 1.5rem;">`;
+                for (const [key, value] of Object.entries(data.concentration_summary)) {
+                    htmlOutput += `<tr><td style="padding: 0.5rem; border-bottom: 1px solid #eee; font-weight: bold; width: 40%;">${key}</td><td style="padding: 0.5rem; border-bottom: 1px solid #eee;">${value}</td></tr>`;
+                }
+                htmlOutput += `</table>`;
+            }
+            
+            if (data.bucket_concentration && data.bucket_concentration.length > 0) {
+                htmlOutput += `<h4 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--text-color);">SPY: Bucket Concentration Scoring (quality-filtered)</h4>`;
+                htmlOutput += `<p style="margin-bottom: 0.75rem; color: #666; font-size: 0.9rem;">Bucket_Concentration_Score = Bucket_TotalOI_Share × Bucket_OI_PCR</p>`;
+                htmlOutput += `<p style="margin-bottom: 1rem; color: #666; font-size: 0.9rem;">Bucket_Concentration_Share normalizes scores across buckets (sums to 1).</p>`;
+                const concentrationCols = ['Bucket', 'Bucket_TotalOI_Share', 'Bucket_OI_PCR', 'Bucket_Concentration_Score', 'Bucket_Concentration_Share'];
+                const filteredBuckets = data.bucket_concentration.map(row => {
+                    const filtered = {};
+                    concentrationCols.forEach(key => {
+                        if (row.hasOwnProperty(key)) filtered[key] = row[key];
+                    });
+                    return filtered;
+                });
+                htmlOutput += formatTableAsHTML(filteredBuckets);
+            }
+            
+            if (data.bucket_term_structure && data.bucket_term_structure.length > 0) {
+                htmlOutput += `<h4 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--text-color);">SPY: Term-Structure Buckets (quality-filtered)</h4>`;
+                htmlOutput += formatTableAsHTML(data.bucket_term_structure);
+            }
+            
+            if (data.per_expiry_table && data.per_expiry_table.length > 0) {
+                htmlOutput += `<h4 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--text-color);">PER-EXPIRY TOTALS (WITH SIGNALS) — SPY</h4>`;
+                htmlOutput += formatTableAsHTML(data.per_expiry_table);
+            }
+            
+            htmlOutput += `</div>`;
+            textOutput.innerHTML = htmlOutput;
+        }
+        
+        // Render immediately on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            renderSnapshot();
+            
+            // Handle "View Snapshot" button
+            const viewSnapshotBtn = document.getElementById('run-live-data-btn');
+            if (viewSnapshotBtn) {
+                viewSnapshotBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetSection = document.getElementById('interactive-analysis');
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            }
+            
+            // If page loaded with anchor, scroll to section
+            if (window.location.hash === '#interactive-analysis') {
+                setTimeout(() => {
+                    const targetSection = document.getElementById('interactive-analysis');
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }, 100);
+            }
+        });
+    </script></body>
 </html>
