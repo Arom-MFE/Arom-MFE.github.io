@@ -168,21 +168,22 @@
             plotContainer.innerHTML = '';
             
             try {
-                // Load snapshot files from root directory (flat structure)
+                // Load from local snapshots folder first, then fall back to root
                 let dataResponse;
                 let dataUrl = 'latest_table.json';
-                let plotBaseUrl = '';
+                let '';
                 
                 try {
                     dataResponse = await fetch(dataUrl);
-                    if (!dataResponse.ok) throw new Error('Snapshot file not found');
+                    if (!dataResponse.ok) throw new Error('Local snapshot not found');
                 } catch (e) {
-                    // If local file not found, try loading from GitHub Pages
-                    const repoPath = window.location.pathname.split('/').slice(0, -1).join('/') || '';
-                    dataUrl = repoPath + '/latest_table.json';
-                    plotBaseUrl = repoPath + '/';
-                    dataResponse = await fetch(dataUrl);
-                    if (!dataResponse.ok) {
+                    // Fall back to root directory
+                    dataUrl = '../latest_table.json';
+                    '../';
+                    try {
+                        dataResponse = await fetch(dataUrl);
+                        if (!dataResponse.ok) throw new Error('Root snapshot not found');
+                    } catch (e2) {
                         throw new Error('Snapshot files not available. They are generated automatically via GitHub Actions.');
                     }
                 }
@@ -254,9 +255,9 @@
                 
                 // Load and display plots
                 const plots = [
-                    { url: (plotBaseUrl || '') + 'latest_plot_pcr.png', alt: 'PCR by Expiry' },
-                    { url: (plotBaseUrl || '') + 'latest_plot_impulse.png', alt: 'Hedging Impulse Timeline' },
-                    { url: (plotBaseUrl || '') + 'latest_plot_eventscore.png', alt: 'Event Score Timeline' }
+                    { url: 'latest_plot_pcr.png', alt: 'PCR by Expiry' },
+                    { url: 'latest_plot_impulse.png', alt: 'Hedging Impulse Timeline' },
+                    { url: 'latest_plot_eventscore.png', alt: 'Event Score Timeline' }
                 ];
                 
                 for (const plot of plots) {
