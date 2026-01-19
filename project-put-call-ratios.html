@@ -172,7 +172,7 @@
             plotContainer.innerHTML = '';
             
             try {
-                // Try loading from local files first (for local testing), then fall back to GitHub
+                // Load snapshot files from the same repository (updated every 6 hours via GitHub Actions)
                 let dataResponse;
                 let dataUrl = 'latest_table.json';
                 let plotBaseUrl = '';
@@ -181,12 +181,14 @@
                     dataResponse = await fetch(dataUrl);
                     if (!dataResponse.ok) throw new Error('Local file not found');
                 } catch (e) {
-                    // Fall back to GitHub
-                    dataUrl = 'https://raw.githubusercontent.com/Arom-MFE/pcr-signals/main/latest_table.json';
-                    plotBaseUrl = 'https://raw.githubusercontent.com/Arom-MFE/pcr-signals/main/';
+                    // If local file not found, try loading from GitHub Pages
+                    // Get the current page's origin to construct the URL
+                    const repoPath = window.location.pathname.split('/').slice(0, -1).join('/') || '';
+                    dataUrl = repoPath + '/latest_table.json';
+                    plotBaseUrl = repoPath + '/';
                     dataResponse = await fetch(dataUrl);
                     if (!dataResponse.ok) {
-                        throw new Error('Failed to load snapshot data from both local and GitHub sources');
+                        throw new Error('Failed to load snapshot data. The GitHub Action may still be running.');
                     }
                 }
                 
