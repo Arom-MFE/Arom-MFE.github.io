@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deriving a Markov Transition Model from Option-Implied Risk-Neutral Densities | Alexander Rom</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html">AR</a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html#about" class="nav-link">About</a></li>
+                <li><a href="index.html#projects" class="nav-link">Projects</a></li>
+                <li><a href="index.html#experience" class="nav-link">Experience</a></li>
+                <li><a href="index.html#education" class="nav-link">Education</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Project Detail Section -->
+    <section class="project-detail">
+        <div class="container">
+            <div class="project-detail-header">
+                <a href="index.html#projects" class="back-link">← Back to Research & Projects</a>
+                <h1 class="project-detail-title">Deriving a Markov Transition Model from Option-Implied Risk-Neutral Densities</h1>
+            </div>
+
+            <div class="project-detail-header" style="margin-bottom: 1.5rem; margin-top: 0.5rem;">
+                <a href="Deriving_a_Markov_Transition_Model_from_Option_Implied_Risk_Neutral_Densities.pdf" target="_blank" class="project-link-button">Full Paper (PDF) →</a>
+            </div>
+
+            <!-- Abstract -->
+            <div class="project-section">
+                <h2 class="section-title">Abstract</h2>
+                <p class="abstract-text">This project derives a discrete-time Markov transition model for an asset price using option-implied risk-neutral densities across maturities. Risk-neutral marginals are recovered from option prices (Breeden–Litzenberger), discretized onto a state grid, and linked via transition matrices that satisfy probability constraints and the risk-neutral martingale condition. Full derivations are provided in the attached note; implementation and validation are in progress.</p>
+            </div>
+
+            <!-- Methods -->
+            <div class="project-section">
+                <h2 class="section-title">Methods</h2>
+                <ul class="bullet-list">
+                    <li><strong>Option surface → risk-neutral density:</strong> recover marginal <span class="math-formula"><i>f</i><sup>&nbsp;Q</sup>(S<sub>T</sub>)</span> per maturity from call prices via Breeden–Litzenberger (using a smoothed, no-arbitrage fit).</li>
+                    <li><strong>Discretization:</strong> map each marginal onto a fixed state grid <span class="math-formula">{s<sub>1</sub>, …, s<sub>M</sub>}</span> to obtain distributions <span class="math-formula"><i>π</i><sup>(i)</sup></span>.</li>
+                    <li><strong>Markov construction:</strong> build time-inhomogeneous transition matrices <span class="math-formula"><i>P</i><sup>(i)</sup></span> such that rows are nonnegative and sum to 1.</li>
+                    <li><strong>Martingale constraint:</strong> enforce <span class="math-formula">E[S<sub>t<sub>i+1</sub></sub> | S<sub>t<sub>i</sub></sub> = s<sub>j</sub>] = s<sub>j</sub> e<sup>(r−q)Δt</sup></span> under <span class="math-formula">Q</span>.</li>
+                    <li><strong>Locality (tri-diagonal):</strong> restrict transitions to nearby states for stability and interpretability, with feasibility bounds per row.</li>
+                    <li><strong>Calibration objective (in progress):</strong> choose free parameters to match <span class="math-formula"><i>π</i><sup>(i)</sup><i>P</i><sup>(i)</sup> ≈ <i>π</i><sup>(i+1)</sup></span> across maturities.</li>
+                </ul>
+            </div>
+
+            <!-- Output -->
+            <div class="project-section">
+                <h2 class="section-title">Output</h2>
+                <ul class="bullet-list">
+                    <li>A sequence of risk-neutral marginal distributions <span class="math-formula">{<i>π</i><sup>(i)</sup>}</span> extracted from the option market.</li>
+                    <li>A sequence of transition matrices <span class="math-formula">{<i>P</i><sup>(i)</sup>}</span> defining a discrete-time, risk-neutral Markov chain consistent with those marginals.</li>
+                    <li><strong>Applications:</strong> risk-neutral path simulation, scenario transition probabilities, and pricing of discretely monitored/path-dependent payoffs.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Alexander Rom. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

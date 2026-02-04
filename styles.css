@@ -428,8 +428,8 @@ section:last-of-type {
 }
 
 .certifications-list {
-    list-style: none;
-    padding-left: 0;
+    list-style: disc;
+    padding-left: 1.25rem;
 }
 
 .certifications-list li {
@@ -437,17 +437,10 @@ section:last-of-type {
     font-size: 0.95rem;
     line-height: 1.7;
     margin-bottom: 0.6rem;
-    padding-left: 1.5rem;
-    position: relative;
 }
 
-.certifications-list li::before {
-    content: '•';
-    position: absolute;
-    left: 0.5rem;
+.certifications-list li::marker {
     color: var(--primary-color);
-    font-weight: normal;
-    font-size: 0.85rem;
 }
 
 /* Experience Section */
@@ -726,6 +719,11 @@ section:last-of-type {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    /* When nav wraps on mobile, prevent hero title from hiding under fixed navbar */
+    .hero {
+        padding-top: 8.5rem;
+    }
+
     .nav-menu {
         flex-wrap: wrap;
         gap: 1rem;
@@ -807,6 +805,10 @@ section:last-of-type {
 }
 
 @media (max-width: 480px) {
+    .hero {
+        padding-top: 9.5rem;
+    }
+
     .hero-title {
         font-size: 2rem;
     }
@@ -925,22 +927,17 @@ section:last-of-type {
 }
 
 .bullet-list {
-    list-style: none;
-    padding-left: 0;
+    list-style: disc;
+    padding-left: 1.25rem;
 }
 
 .bullet-list li {
-    padding-left: 1.5rem;
-    position: relative;
     margin-bottom: 0.6rem;
     line-height: 1.6;
     color: var(--text-color);
 }
 
-.bullet-list li::before {
-    content: '•';
-    position: absolute;
-    left: 0;
+.bullet-list li::marker {
     color: var(--primary-color);
     font-weight: 600;
 }
