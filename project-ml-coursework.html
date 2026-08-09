@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning for Data Science | Alexander Rom</title>
+    <link rel="stylesheet" href="styles.css">
+    <meta name="description" content="Eight graduate machine learning projects and a 189-page notes book: k-nearest neighbours through transfer learning with pretrained networks.">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta property="og:title" content="Machine Learning for Data Science | Alexander Rom">
+    <meta property="og:description" content="Eight graduate machine learning projects and a 189-page notes book: k-nearest neighbours through transfer learning with pretrained networks.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://alexanderom.com/project-ml-coursework.html">
+    <meta property="og:image" content="https://alexanderom.com/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html">AR</a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html#about" class="nav-link">About</a></li>
+                <li><a href="index.html#projects" class="nav-link">Projects</a></li>
+                <li><a href="index.html#experience" class="nav-link">Experience</a></li>
+                <li><a href="index.html#education" class="nav-link">Education</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Project Detail Section -->
+    <section class="project-detail">
+        <div class="container">
+            <div class="project-detail-header">
+                <a href="index.html#projects" class="back-link">← Back to Research & Projects</a>
+                <h1 class="project-detail-title">Machine Learning for Data Science</h1>
+            </div>
+
+            <div class="project-detail-header" style="margin-bottom: 1.5rem; margin-top: 0.5rem;">
+                <a href="https://github.com/Arom-MFE/ml-usc" target="_blank" class="project-link-button">View on GitHub →</a>
+                <a href="ml-notes.pdf" target="_blank" class="project-link-button">Course Notes (PDF) →</a>
+            </div>
+
+            <!-- Overview -->
+            <div class="project-section">
+                <h2 class="section-title">Overview</h2>
+                <p class="abstract-text">Eight machine learning projects from Machine Learning for Data Science, a graduate course at USC. Each is a standalone notebook with its own data, covering preparation, model selection, and evaluation on a public dataset.</p>
+            </div>
+
+            <!-- Projects -->
+            <div class="project-section">
+                <h2 class="section-title">Projects</h2>
+                <div class="table-container">
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Project</th>
+                                <th>Description</th>
+                                <th>Notebook</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><strong><a href="https://github.com/Arom-MFE/ml-usc/blob/main/01-knn-distance-metrics/knn_distance_metrics.ipynb" target="_blank" class="hero-contact-link">KNN and Distance Metrics</a></strong></td>
+                                <td>Classifies patients as normal or abnormal from six spinal measurements and tests how the distance metric changes the result; test error runs from 0.06 to 0.17 across five metrics.</td>
+                                <td><a href="https://github.com/Arom-MFE/ml-usc/blob/main/01-knn-distance-metrics/knn_distance_metrics.ipynb" target="_blank" class="project-link">Open →</a></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><strong><a href="https://github.com/Arom-MFE/ml-usc/blob/main/02-linear-regression/linear_regression_power_output.ipynb" target="_blank" class="hero-contact-link">Linear Regression on Power Plant Output</a></strong></td>
+                                <td>Predicts a power plant's hourly electrical output from four ambient measurements, working through outliers, nonlinearity, and interactions; KNN beats the OLS baseline 14.29 to 21.24 on test MSE.</td>
+                                <td><a href="https://github.com/Arom-MFE/ml-usc/blob/main/02-linear-regression/linear_regression_power_output.ipynb" target="_blank" class="project-link">Open →</a></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td><strong><a href="https://github.com/Arom-MFE/ml-usc/blob/main/03-time-series-classification/time_series_activity_classification.ipynb" target="_blank" class="hero-contact-link">Time Series Activity Classification</a></strong></td>
+                                <td>Identifies which of seven activities a person is performing from six wireless sensor channels using time-domain features; the bending detector separates held-out data exactly and the seven-class model reaches 0.842.</td>
+                                <td><a href="https://github.com/Arom-MFE/ml-usc/blob/main/03-time-series-classification/time_series_activity_classification.ipynb" target="_blank" class="project-link">Open →</a></td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td><strong><a href="https://github.com/Arom-MFE/ml-usc/blob/main/04-regularization-and-trees/regularization_and_decision_trees.ipynb" target="_blank" class="hero-contact-link">Regularization and Decision Trees</a></strong></td>
+                                <td>Prunes a clinical decision tree down to readable IF-THEN rules, then compares ridge, LASSO, principal components, and boosting on a 122-predictor crime regression; ridge takes the lowest test MSE.</td>
+                                <td><a href="https://github.com/Arom-MFE/ml-usc/blob/main/04-regularization-and-trees/regularization_and_decision_trees.ipynb" target="_blank" class="project-link">Open →</a></td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td><strong><a href="https://github.com/Arom-MFE/ml-usc/blob/main/05-imbalanced-classification/imbalanced_classification_smote.ipynb" target="_blank" class="hero-contact-link">Imbalanced Classification with SMOTE</a></strong></td>
+                                <td>Detects air pressure system failures in Scania trucks where failures are 1.67 percent of the training set; class weighting cuts missed failures from 121 to 35.</td>
+                                <td><a href="https://github.com/Arom-MFE/ml-usc/blob/main/05-imbalanced-classification/imbalanced_classification_smote.ipynb" target="_blank" class="project-link">Open →</a></td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td><strong><a href="https://github.com/Arom-MFE/ml-usc/blob/main/06-multilabel-svm-clustering/multilabel_svm_and_kmeans.ipynb" target="_blank" class="hero-contact-link">Multi-Label SVM and K-Means Clustering</a></strong></td>
+                                <td>Assigns family, genus, and species to recorded frog calls from 22 MFCC features; a Gaussian-kernel SVM gets all three labels right on 98.75 percent of test calls.</td>
+                                <td><a href="https://github.com/Arom-MFE/ml-usc/blob/main/06-multilabel-svm-clustering/multilabel_svm_and_kmeans.ipynb" target="_blank" class="project-link">Open →</a></td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td><strong><a href="https://github.com/Arom-MFE/ml-usc/blob/main/07-semi-supervised-active-learning/semi_supervised_and_active_learning.ipynb" target="_blank" class="hero-contact-link">Semi-Supervised and Active Learning</a></strong></td>
+                                <td>Compares a supervised SVM against self-training, k-means, and spectral clustering over 30 fixed splits, then tests whether choosing which points to label beats labeling at random.</td>
+                                <td><a href="https://github.com/Arom-MFE/ml-usc/blob/main/07-semi-supervised-active-learning/semi_supervised_and_active_learning.ipynb" target="_blank" class="project-link">Open →</a></td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td><strong><a href="https://github.com/Arom-MFE/ml-usc/blob/main/08-transfer-learning-cnn/transfer_learning_fungi_classification.ipynb" target="_blank" class="hero-contact-link">Transfer Learning for Fungi Image Classification</a></strong></td>
+                                <td>Sorts 9,114 microscopy images of fungal infections into five classes with five frozen ImageNet backbones; ResNet101 leads at 0.8476 test accuracy.</td>
+                                <td><a href="https://github.com/Arom-MFE/ml-usc/blob/main/08-transfer-learning-cnn/transfer_learning_fungi_classification.ipynb" target="_blank" class="project-link">Open →</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Notes -->
+            <div class="project-section">
+                <h2 class="section-title">Notes</h2>
+                <p class="abstract-text">A complete written treatment of the course, from linear regression and classification through model selection, tree-based methods, and support vector machines to unsupervised learning, semi-supervised and active learning, and neural networks. Each topic is built up from its definitions and formulas to the reasoning behind the method, with worked figures and proofs where they earn their place. Written to stand on its own as a reference; chapter links open the PDF at that chapter.</p>
+                <div class="table-container">
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>Ch</th>
+                                <th>Chapter</th>
+                                <th>Topics</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><strong><a href="ml-notes.pdf#page=5" target="_blank" class="hero-contact-link">Intro and Linear Regression</a></strong></td>
+                                <td>Learning paradigms, bias-variance trade-off, nearest neighbors, OLS, inference, multicollinearity, interactions</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><strong><a href="ml-notes.pdf#page=33" target="_blank" class="hero-contact-link">Classification</a></strong></td>
+                                <td>Logistic regression, Bayes' rule, LDA and QDA, naive Bayes, error measures, class imbalance</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td><strong><a href="ml-notes.pdf#page=55" target="_blank" class="hero-contact-link">Linear Model Selection and Regularization</a></strong></td>
+                                <td>Subset selection, cross-validation, ridge, lasso, elastic net, PCR, partial least squares</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td><strong><a href="ml-notes.pdf#page=74" target="_blank" class="hero-contact-link">Tree-Based Methods</a></strong></td>
+                                <td>Regression and classification trees, pruning, bagging, random forests, boosting, AdaBoost, stacking</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td><strong><a href="ml-notes.pdf#page=93" target="_blank" class="hero-contact-link">Support Vector Machines</a></strong></td>
+                                <td>Maximal margin, soft margin, kernels, multi-class and multi-label SVMs, hinge loss, VC dimension, SVR</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td><strong><a href="ml-notes.pdf#page=111" target="_blank" class="hero-contact-link">Unsupervised Learning</a></strong></td>
+                                <td>K-means and k-medoids, hierarchical clustering, choosing K, silhouette and gap statistic, PCA and the SVD, Fisher's LDA</td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td><strong><a href="ml-notes.pdf#page=134" target="_blank" class="hero-contact-link">Semi-Supervised and Active Learning</a></strong></td>
+                                <td>Self-training, co-training, semi-supervised SVM, cluster and label, uncertainty sampling, query by committee</td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td><strong><a href="ml-notes.pdf#page=143" target="_blank" class="hero-contact-link">Neural Networks and Deep Learning</a></strong></td>
+                                <td>Perceptron, MLPs and backpropagation, regularization and dropout, CNNs, transfer learning, RNNs, LSTM and GRU</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; Alexander Rom. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

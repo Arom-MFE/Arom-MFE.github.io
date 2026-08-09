@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Engineering | Alexander Rom</title>
+    <link rel="stylesheet" href="styles.css">
+    <meta name="description" content="Five graduate financial engineering projects and a 196-page notes book: yield curves, Monte Carlo pricing, credit risk, and real options.">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta property="og:title" content="Financial Engineering | Alexander Rom">
+    <meta property="og:description" content="Five graduate financial engineering projects and a 196-page notes book: yield curves, Monte Carlo pricing, credit risk, and real options.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://alexanderom.com/project-fe-coursework.html">
+    <meta property="og:image" content="https://alexanderom.com/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html">AR</a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html#about" class="nav-link">About</a></li>
+                <li><a href="index.html#projects" class="nav-link">Projects</a></li>
+                <li><a href="index.html#experience" class="nav-link">Experience</a></li>
+                <li><a href="index.html#education" class="nav-link">Education</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Project Detail Section -->
+    <section class="project-detail">
+        <div class="container">
+            <div class="project-detail-header">
+                <a href="index.html#projects" class="back-link">← Back to Research & Projects</a>
+                <h1 class="project-detail-title">Financial Engineering</h1>
+            </div>
+
+            <div class="project-detail-header" style="margin-bottom: 1.5rem; margin-top: 0.5rem;">
+                <a href="https://github.com/Arom-MFE/fe-usc" target="_blank" class="project-link-button">View on GitHub →</a>
+                <a href="fe-notes.pdf" target="_blank" class="project-link-button">Course Notes (PDF) →</a>
+            </div>
+
+            <!-- Overview -->
+            <div class="project-section">
+                <h2 class="section-title">Overview</h2>
+                <p class="abstract-text">Five quantitative finance projects from my graduate financial engineering coursework at USC. Each notebook opens with a contents table, states its model assumptions, derives the formulas it implements, and keeps every result in executed cells.</p>
+            </div>
+
+            <!-- Projects -->
+            <div class="project-section">
+                <h2 class="section-title">Projects</h2>
+                <div class="table-container">
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Project</th>
+                                <th>Description</th>
+                                <th>Notebook</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><strong><a href="https://github.com/Arom-MFE/fe-usc/blob/main/01-term-structure-swaps-and-trees/term_structure_swaps_and_trees.ipynb" target="_blank" class="hero-contact-link">Term Structure, Swaps, and Lattice Pricing</a></strong></td>
+                                <td>Bootstraps a SOFR discount curve under three interpolation assumptions, prices bonds, swaps, and forward swaps off it, then values American and barrier options on binomial and trinomial trees.</td>
+                                <td><a href="https://github.com/Arom-MFE/fe-usc/blob/main/01-term-structure-swaps-and-trees/term_structure_swaps_and_trees.ipynb" target="_blank" class="project-link">Open →</a></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><strong><a href="https://github.com/Arom-MFE/fe-usc/blob/main/02-monte-carlo-option-pricing/monte_carlo_option_pricing.ipynb" target="_blank" class="hero-contact-link">Monte Carlo Option Pricing</a></strong></td>
+                                <td>Prices vanilla and exotic options by simulation: bump-and-revalue Greeks, Asian and knockout payoffs, correlated baskets, a delta-hedging profit and loss study, and least squares Monte Carlo for early exercise.</td>
+                                <td><a href="https://github.com/Arom-MFE/fe-usc/blob/main/02-monte-carlo-option-pricing/monte_carlo_option_pricing.ipynb" target="_blank" class="project-link">Open →</a></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td><strong><a href="https://github.com/Arom-MFE/fe-usc/blob/main/03-credit-risk-models/credit_risk_models.ipynb" target="_blank" class="hero-contact-link">Credit Risk Models</a></strong></td>
+                                <td>Works through structural default modeling, hazard rates implied from CDS quotes, rating-migration bond valuation with a crisis stress, and correlated-default pricing of basket tranches.</td>
+                                <td><a href="https://github.com/Arom-MFE/fe-usc/blob/main/03-credit-risk-models/credit_risk_models.ipynb" target="_blank" class="project-link">Open →</a></td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td><strong><a href="https://github.com/Arom-MFE/fe-usc/blob/main/04-market-risk-and-real-options/market_risk_and_real_options.ipynb" target="_blank" class="hero-contact-link">Volatility, Market Risk, and Real Options</a></strong></td>
+                                <td>Estimates GARCH(1,1) volatility by maximum likelihood, simulates portfolio VaR and expected shortfall under Vasicek rates, reduces the Treasury curve to principal components, and values abandonment and expansion options.</td>
+                                <td><a href="https://github.com/Arom-MFE/fe-usc/blob/main/04-market-risk-and-real-options/market_risk_and_real_options.ipynb" target="_blank" class="project-link">Open →</a></td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td><strong><a href="https://github.com/Arom-MFE/fe-usc/blob/main/05-annuity-guarantee-pricing/annuity_guarantee_pricing.ipynb" target="_blank" class="hero-contact-link">Variable Annuity Guarantee Pricing</a></strong></td>
+                                <td>Values a 30-year withdrawal guarantee from the insurer's side by seeded Monte Carlo with correlated equity and Vasicek rate dynamics, mortality, and fee income, under risk-neutral and real-world views.</td>
+                                <td><a href="https://github.com/Arom-MFE/fe-usc/blob/main/05-annuity-guarantee-pricing/annuity_guarantee_pricing.ipynb" target="_blank" class="project-link">Open →</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Notes -->
+            <div class="project-section">
+                <h2 class="section-title">Notes</h2>
+                <p class="abstract-text">A complete written treatment of the course, from interest rates, bonds, and futures through discrete and continuous time valuation, implied volatility, and interest rate models to credit risk and applications from value at risk to real options. Each topic is built up from its definitions and derivations to the reasoning behind the model, with figures and worked examples where they help. Written to stand on its own as a reference; chapter links open the PDF at that chapter.</p>
+                <div class="table-container">
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>Ch</th>
+                                <th>Chapter</th>
+                                <th>Topics</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><strong><a href="fe-notes.pdf#page=4" target="_blank" class="hero-contact-link">Interest Rates, Bonds, and Futures</a></strong></td>
+                                <td>Rate fundamentals, forward rates, bond pricing, bootstrapping the yield curve, swaps, futures and hedging</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><strong><a href="fe-notes.pdf#page=30" target="_blank" class="hero-contact-link">Discrete Valuation Models</a></strong></td>
+                                <td>Option basics and strategies, binomial pricing, futures options, the analytical binomial model</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td><strong><a href="fe-notes.pdf#page=49" target="_blank" class="hero-contact-link">Continuous Time Models</a></strong></td>
+                                <td>Log returns, GBM, Ito's lemma, the Black-Scholes framework, risk-neutral valuation, Monte Carlo</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td><strong><a href="fe-notes.pdf#page=80" target="_blank" class="hero-contact-link">Implied Volatility and Non-Standard Options</a></strong></td>
+                                <td>The volatility surface, term structure and skew, local volatility, Heston and Bates, exotic and FX options, variance swaps</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td><strong><a href="fe-notes.pdf#page=104" target="_blank" class="hero-contact-link">Interest Rate Derivatives and Models</a></strong></td>
+                                <td>Caps, floors, and swaptions, convexity adjustment, equilibrium and no-arbitrage models, Hull-White trees</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td><strong><a href="fe-notes.pdf#page=141" target="_blank" class="hero-contact-link">Credit Risk</a></strong></td>
+                                <td>Rating transitions, structural and reduced form models, correlated defaults, CDS, CDOs, convertible bonds</td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td><strong><a href="fe-notes.pdf#page=159" target="_blank" class="hero-contact-link">Applications</a></strong></td>
+                                <td>PCA on the curve, VaR and expected shortfall, credit VaR, economic capital, asset liability management, commodities, real options</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; Alexander Rom. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
