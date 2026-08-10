@@ -47,7 +47,7 @@
             <!-- Overview -->
             <div class="project-section">
                 <h2 class="section-title">Overview</h2>
-                <p class="abstract-text">Everything from Machine Learning for Data Science, a graduate course at USC, in one place: eight projects and a full set of course notes. The projects run from k-nearest neighbours and regression through trees, SVMs, and clustering to semi-supervised learning and deep transfer learning; each is a standalone notebook with its own data, built around preparation, model selection, and honest evaluation. The table below links every notebook on GitHub, and the chapter guide at the bottom opens the notes PDF at any chapter.</p>
+                <p class="abstract-text">Eight projects and a full set of course notes from Machine Learning for Data Science, a graduate course at USC. The projects run from k-nearest neighbours and regression through trees, SVMs, and clustering to semi-supervised learning and transfer learning. Each is a standalone notebook with its own data, built around preparation, model selection, and honest evaluation.</p>
             </div>
 
             <!-- Projects -->
@@ -57,59 +57,59 @@
                     <table class="results-table">
                         <thead>
                             <tr>
-                                <th>#</th>
                                 <th>Project</th>
-                                <th>Description</th>
-                                <th>Notebook</th>
+                                <th>Methods</th>
+                                <th>Key result</th>
+                                <th>Open</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>1</td>
-                                <td><strong><a href="https://github.com/Arom-MFE/ml-usc/blob/main/01-knn-distance-metrics/knn_distance_metrics.ipynb" target="_blank" class="hero-contact-link">KNN and Distance Metrics</a></strong></td>
-                                <td>Diagnoses spinal abnormality from six biomechanical measurements with k-nearest neighbours, testing Euclidean, Manhattan, Minkowski, Chebyshev, and Mahalanobis metrics plus distance-weighted voting; the choice of metric alone moves test error from 0.06 to 0.17.</td>
+                                <td><strong><a href="https://github.com/Arom-MFE/ml-usc/blob/main/01-knn-distance-metrics/knn_distance_metrics.ipynb" target="_blank" class="hero-contact-link">KNN and Distance Metrics</a></strong><br>Diagnose spinal abnormality from six biomechanical measurements.</td>
+                                <td>K-nearest neighbours · Euclidean, Manhattan, Minkowski, Chebyshev, and Mahalanobis metrics · distance-weighted voting</td>
+                                <td>Test error 0.06 at k = 4; metric choice alone spans 0.06 to 0.17</td>
                                 <td><a href="https://github.com/Arom-MFE/ml-usc/blob/main/01-knn-distance-metrics/knn_distance_metrics.ipynb" target="_blank" class="project-link">Open</a></td>
                             </tr>
                             <tr>
-                                <td>2</td>
-                                <td><strong><a href="https://github.com/Arom-MFE/ml-usc/blob/main/02-linear-regression/linear_regression_power_output.ipynb" target="_blank" class="hero-contact-link">Linear Regression on Power Plant Output</a></strong></td>
-                                <td>Predicts a power plant's hourly electrical output from ambient conditions, building from simple OLS through interaction and polynomial terms to a tuned KNN regressor; the final model cuts test MSE from 21.24 to 14.29.</td>
+                                <td><strong><a href="https://github.com/Arom-MFE/ml-usc/blob/main/02-linear-regression/linear_regression_power_output.ipynb" target="_blank" class="hero-contact-link">Linear Regression on Power Plant Output</a></strong><br>Predict a power plant's hourly electrical output from ambient conditions.</td>
+                                <td>OLS · polynomial and interaction terms · backward elimination · KNN regression</td>
+                                <td>Test MSE cut from 21.24 to 14.29 over the OLS baseline</td>
                                 <td><a href="https://github.com/Arom-MFE/ml-usc/blob/main/02-linear-regression/linear_regression_power_output.ipynb" target="_blank" class="project-link">Open</a></td>
                             </tr>
                             <tr>
-                                <td>3</td>
-                                <td><strong><a href="https://github.com/Arom-MFE/ml-usc/blob/main/03-time-series-classification/time_series_activity_classification.ipynb" target="_blank" class="hero-contact-link">Time Series Activity Classification</a></strong></td>
-                                <td>Recognizes which of seven physical activities a person is doing from raw wireless sensor streams, engineering time-domain features for logistic regression with recursive feature elimination, L1 penalties, and naive Bayes; seven-class accuracy reaches 0.842 and the bending detector is exact on the test set.</td>
+                                <td><strong><a href="https://github.com/Arom-MFE/ml-usc/blob/main/03-time-series-classification/time_series_activity_classification.ipynb" target="_blank" class="hero-contact-link">Time Series Activity Classification</a></strong><br>Recognize which of seven activities a person is doing from wireless sensor streams.</td>
+                                <td>Time-domain features · logistic regression with RFECV · L1 penalties · naive Bayes</td>
+                                <td>0.842 seven-class accuracy; the bending detector is exact on test</td>
                                 <td><a href="https://github.com/Arom-MFE/ml-usc/blob/main/03-time-series-classification/time_series_activity_classification.ipynb" target="_blank" class="project-link">Open</a></td>
                             </tr>
                             <tr>
-                                <td>4</td>
-                                <td><strong><a href="https://github.com/Arom-MFE/ml-usc/blob/main/04-regularization-and-trees/regularization_and_decision_trees.ipynb" target="_blank" class="hero-contact-link">Regularization and Decision Trees</a></strong></td>
-                                <td>Turns a pruned decision tree into readable IF-THEN rules on a clinical dataset, then attacks a 122-predictor crime regression with ridge, LASSO, principal component regression, and XGBoost; ridge wins at 0.01732 test MSE.</td>
+                                <td><strong><a href="https://github.com/Arom-MFE/ml-usc/blob/main/04-regularization-and-trees/regularization_and_decision_trees.ipynb" target="_blank" class="hero-contact-link">Regularization and Decision Trees</a></strong><br>Make a clinical tree readable, then tame a 122-predictor crime regression.</td>
+                                <td>Cost-complexity pruning · ridge · LASSO · principal component regression · XGBoost</td>
+                                <td>Ridge lowest of six models at 0.01732 test MSE</td>
                                 <td><a href="https://github.com/Arom-MFE/ml-usc/blob/main/04-regularization-and-trees/regularization_and_decision_trees.ipynb" target="_blank" class="project-link">Open</a></td>
                             </tr>
                             <tr>
-                                <td>5</td>
-                                <td><strong><a href="https://github.com/Arom-MFE/ml-usc/blob/main/05-imbalanced-classification/imbalanced_classification_smote.ipynb" target="_blank" class="hero-contact-link">Imbalanced Classification with SMOTE</a></strong></td>
-                                <td>Catches failing air pressure systems in Scania trucks where only 1.67 percent of the training set are failures, weighing class weights against SMOTE oversampling in random forests and XGBoost; missed failures drop from 121 to 35.</td>
+                                <td><strong><a href="https://github.com/Arom-MFE/ml-usc/blob/main/05-imbalanced-classification/imbalanced_classification_smote.ipynb" target="_blank" class="hero-contact-link">Imbalanced Classification with SMOTE</a></strong><br>Detect failing air pressure systems in Scania trucks; failures are 1.67 percent of the training set.</td>
+                                <td>Random forest · class weights · SMOTE · XGBoost with L1</td>
+                                <td>Missed failures cut from 121 to 35 of 375</td>
                                 <td><a href="https://github.com/Arom-MFE/ml-usc/blob/main/05-imbalanced-classification/imbalanced_classification_smote.ipynb" target="_blank" class="project-link">Open</a></td>
                             </tr>
                             <tr>
-                                <td>6</td>
-                                <td><strong><a href="https://github.com/Arom-MFE/ml-usc/blob/main/06-multilabel-svm-clustering/multilabel_svm_and_kmeans.ipynb" target="_blank" class="hero-contact-link">Multi-Label SVM and K-Means Clustering</a></strong></td>
-                                <td>Labels frog calls with family, genus, and species at once from 22 audio features, using one-vs-all Gaussian-kernel SVMs, L1-penalized linear SVMs, and k-means with silhouette selection; 98.75 percent of test calls get all three labels right.</td>
+                                <td><strong><a href="https://github.com/Arom-MFE/ml-usc/blob/main/06-multilabel-svm-clustering/multilabel_svm_and_kmeans.ipynb" target="_blank" class="hero-contact-link">Multi-Label SVM and K-Means Clustering</a></strong><br>Label frog calls with family, genus, and species at once from 22 audio features.</td>
+                                <td>Gaussian-kernel SVM one-vs-all · L1 linear SVM · SMOTE · k-means with silhouette selection</td>
+                                <td>All three labels right on 98.75 percent of test calls</td>
                                 <td><a href="https://github.com/Arom-MFE/ml-usc/blob/main/06-multilabel-svm-clustering/multilabel_svm_and_kmeans.ipynb" target="_blank" class="project-link">Open</a></td>
                             </tr>
                             <tr>
-                                <td>7</td>
-                                <td><strong><a href="https://github.com/Arom-MFE/ml-usc/blob/main/07-semi-supervised-active-learning/semi_supervised_and_active_learning.ipynb" target="_blank" class="hero-contact-link">Semi-Supervised and Active Learning</a></strong></td>
-                                <td>Asks how far you can get with few labels: a supervised SVM against self-training, k-means, and spectral clustering over 30 fixed splits, plus margin-based active learning against random labeling; supervision holds a clear edge at 0.9708.</td>
+                                <td><strong><a href="https://github.com/Arom-MFE/ml-usc/blob/main/07-semi-supervised-active-learning/semi_supervised_and_active_learning.ipynb" target="_blank" class="hero-contact-link">Semi-Supervised and Active Learning</a></strong><br>Measure how far models get when labels are scarce or chosen strategically.</td>
+                                <td>Supervised SVM · self-training · k-means and spectral clustering · margin-based active learning</td>
+                                <td>Supervision holds the edge at 0.9708 over 30 fixed splits</td>
                                 <td><a href="https://github.com/Arom-MFE/ml-usc/blob/main/07-semi-supervised-active-learning/semi_supervised_and_active_learning.ipynb" target="_blank" class="project-link">Open</a></td>
                             </tr>
                             <tr>
-                                <td>8</td>
-                                <td><strong><a href="https://github.com/Arom-MFE/ml-usc/blob/main/08-transfer-learning-cnn/transfer_learning_fungi_classification.ipynb" target="_blank" class="hero-contact-link">Transfer Learning for Fungi Image Classification</a></strong></td>
-                                <td>Classifies 9,114 microscopy images of fungal infections by training heads on five frozen ImageNet backbones: ResNet50, ResNet101, EfficientNetB0, VGG16, and DenseNet201; ResNet101 leads at 0.8476 test accuracy.</td>
+                                <td><strong><a href="https://github.com/Arom-MFE/ml-usc/blob/main/08-transfer-learning-cnn/transfer_learning_fungi_classification.ipynb" target="_blank" class="hero-contact-link">Transfer Learning for Fungi Image Classification</a></strong><br>Classify 9,114 microscopy images of fungal infections into five classes.</td>
+                                <td>Frozen ImageNet backbones · ResNet50 and ResNet101 · EfficientNetB0 · VGG16 · DenseNet201</td>
+                                <td>ResNet101 leads at 0.8476 test accuracy</td>
                                 <td><a href="https://github.com/Arom-MFE/ml-usc/blob/main/08-transfer-learning-cnn/transfer_learning_fungi_classification.ipynb" target="_blank" class="project-link">Open</a></td>
                             </tr>
                         </tbody>
@@ -120,7 +120,7 @@
             <!-- Notes -->
             <div class="project-section">
                 <h2 class="section-title">Notes</h2>
-                <p class="abstract-text">I wrote these notes chapter by chapter through the course and assembled them into one book. They start at linear regression and end at deep learning, and every method along the way gets its definitions, the formulas, a figure where one helps, and a plain explanation of why it works. Use the guide below: each chapter opens the PDF right at that chapter.</p>
+                <p class="abstract-text">I wrote these notes chapter by chapter through the course and assembled them into one book, from linear regression to deep learning. Every method gets its definitions, the formulas, a figure where one helps, and a plain explanation of why it works. Each chapter below opens the PDF at that chapter.</p>
                 <div class="table-container">
                     <table class="results-table">
                         <thead>

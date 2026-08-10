@@ -47,7 +47,7 @@
             <!-- Overview -->
             <div class="project-section">
                 <h2 class="section-title">Overview</h2>
-                <p class="abstract-text">Everything from my graduate financial engineering coursework at USC in one place: five projects and a full set of course notes. The projects run across the derivatives landscape, from curve bootstrapping and lattice pricing through Monte Carlo exotics and GARCH volatility to credit models and a 30-year annuity guarantee; each notebook states its assumptions, derives its formulas, and keeps every result in executed cells. The table below links every notebook on GitHub, and the chapter guide at the bottom opens the notes PDF at any chapter.</p>
+                <p class="abstract-text">Five projects and a full set of course notes from my graduate financial engineering coursework at USC. The projects cover curve construction, lattice and Monte Carlo pricing, volatility modeling, interest rate models, credit, and a 30-year annuity guarantee. Each notebook states its assumptions, derives its formulas, and keeps every result in executed cells.</p>
             </div>
 
             <!-- Projects -->
@@ -57,41 +57,41 @@
                     <table class="results-table">
                         <thead>
                             <tr>
-                                <th>#</th>
                                 <th>Project</th>
-                                <th>Description</th>
-                                <th>Notebook</th>
+                                <th>Methods</th>
+                                <th>Key result</th>
+                                <th>Open</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>1</td>
-                                <td><strong><a href="https://github.com/Arom-MFE/fe-usc/blob/main/01-term-structure-swaps-and-trees/term_structure_swaps_and_trees.ipynb" target="_blank" class="hero-contact-link">Term Structure, Swaps, and Lattice Pricing</a></strong></td>
-                                <td>Builds the SOFR discount curve under three interpolation schemes, prices bonds, swaps, and forward swaps off it, then values American, barrier, and dividend-adjusted options on binomial and trinomial trees; par bonds reprice to exactly 100.00 under all three curves.</td>
+                                <td><strong><a href="https://github.com/Arom-MFE/fe-usc/blob/main/01-term-structure-swaps-and-trees/term_structure_swaps_and_trees.ipynb" target="_blank" class="hero-contact-link">Term Structure, Swaps, and Lattice Pricing</a></strong><br>Build the discount curve and price rates products and options off it.</td>
+                                <td>SOFR bootstrapping under three interpolations · swap and forward-swap pricing · CRR binomial · double-barrier knockout · trinomial tree</td>
+                                <td>Par bonds reprice to exactly 100.00 under all three curves</td>
                                 <td><a href="https://github.com/Arom-MFE/fe-usc/blob/main/01-term-structure-swaps-and-trees/term_structure_swaps_and_trees.ipynb" target="_blank" class="project-link">Open</a></td>
                             </tr>
                             <tr>
-                                <td>2</td>
-                                <td><strong><a href="https://github.com/Arom-MFE/fe-usc/blob/main/02-monte-carlo-option-pricing/monte_carlo_option_pricing.ipynb" target="_blank" class="hero-contact-link">Monte Carlo Option Pricing</a></strong></td>
-                                <td>Prices exotics by simulation: Asian and knockout payoffs, correlated two-asset baskets, bump-and-revalue Greeks, and American exercise by least squares Monte Carlo; a weekly delta-hedging book on 100,000 sold calls replicates for 782,038 against 1,134,848 collected.</td>
+                                <td><strong><a href="https://github.com/Arom-MFE/fe-usc/blob/main/02-monte-carlo-option-pricing/monte_carlo_option_pricing.ipynb" target="_blank" class="hero-contact-link">Monte Carlo Option Pricing</a></strong><br>Price exotics and test how well delta hedging replicates a sold option book.</td>
+                                <td>Asian and knockout payoffs · correlated baskets · bump-and-revalue Greeks · dynamic delta hedging · least squares Monte Carlo</td>
+                                <td>Weekly hedging of 100,000 calls replicates at 782,038 against 1,134,848 collected</td>
                                 <td><a href="https://github.com/Arom-MFE/fe-usc/blob/main/02-monte-carlo-option-pricing/monte_carlo_option_pricing.ipynb" target="_blank" class="project-link">Open</a></td>
                             </tr>
                             <tr>
-                                <td>3</td>
-                                <td><strong><a href="https://github.com/Arom-MFE/fe-usc/blob/main/03-credit-risk-models/credit_risk_models.ipynb" target="_blank" class="hero-contact-link">Credit Risk Models</a></strong></td>
-                                <td>Covers the credit stack end to end: Merton's structural model calibrated to equity, hazard curves bootstrapped from CDS quotes, rating-transition bond valuation under a financial crisis stress, and one-factor Gaussian pricing of synthetic tranches with Vasicek loss distributions; the Merton calibration backs out a 0.477 percent market spread.</td>
+                                <td><strong><a href="https://github.com/Arom-MFE/fe-usc/blob/main/03-credit-risk-models/credit_risk_models.ipynb" target="_blank" class="hero-contact-link">Credit Risk Models</a></strong><br>Model default risk from single names to correlated portfolios.</td>
+                                <td>Merton structural model · CDS hazard bootstrapping · rating-transition valuation with a crisis stress · one-factor Gaussian tranches · Vasicek loss distributions</td>
+                                <td>Merton calibration backs out a 0.477 percent market spread</td>
                                 <td><a href="https://github.com/Arom-MFE/fe-usc/blob/main/03-credit-risk-models/credit_risk_models.ipynb" target="_blank" class="project-link">Open</a></td>
                             </tr>
                             <tr>
-                                <td>4</td>
-                                <td><strong><a href="https://github.com/Arom-MFE/fe-usc/blob/main/04-market-risk-and-real-options/market_risk_and_real_options.ipynb" target="_blank" class="hero-contact-link">Volatility, Market Risk, and Real Options</a></strong></td>
-                                <td>Estimates GARCH(1,1) by maximum likelihood with normal and Student-t errors, simulates portfolio VaR and expected shortfall under Vasicek rates, compresses the Treasury curve with PCA, and prices abandonment and expansion real options on a futures-calibrated tree; volatility persistence lands at 0.988.</td>
+                                <td><strong><a href="https://github.com/Arom-MFE/fe-usc/blob/main/04-market-risk-and-real-options/market_risk_and_real_options.ipynb" target="_blank" class="hero-contact-link">Volatility, Market Risk, and Real Options</a></strong><br>Measure market risk and value flexibility under uncertainty.</td>
+                                <td>GARCH(1,1) by maximum likelihood · VaR and expected shortfall under Vasicek rates · PCA on the Treasury curve · real options on a futures-calibrated tree</td>
+                                <td>Persistence at 0.988; abandonment and expansion price at 7.6228 and 7.9608</td>
                                 <td><a href="https://github.com/Arom-MFE/fe-usc/blob/main/04-market-risk-and-real-options/market_risk_and_real_options.ipynb" target="_blank" class="project-link">Open</a></td>
                             </tr>
                             <tr>
-                                <td>5</td>
-                                <td><strong><a href="https://github.com/Arom-MFE/fe-usc/blob/main/05-annuity-guarantee-pricing/annuity_guarantee_pricing.ipynb" target="_blank" class="hero-contact-link">Variable Annuity Guarantee Pricing</a></strong></td>
-                                <td>Values a 30-year guaranteed withdrawal benefit from the insurer's side: seeded Monte Carlo with equity returns correlated to stochastic Vasicek rates, annual mortality, and fee income netted against shortfalls, under both risk-neutral and real-world measures; starting rates at 1 percent instead of 5 flip the value from 4.6091 to negative 14.7196 per 100 of premium.</td>
+                                <td><strong><a href="https://github.com/Arom-MFE/fe-usc/blob/main/05-annuity-guarantee-pricing/annuity_guarantee_pricing.ipynb" target="_blank" class="hero-contact-link">Variable Annuity Guarantee Pricing</a></strong><br>Value a 30-year guaranteed withdrawal benefit from the insurer's side.</td>
+                                <td>Seeded Monte Carlo · equity correlated with stochastic Vasicek rates · mortality and fee income · risk-neutral and real-world views</td>
+                                <td>4.6091 per 100 of premium at 5 percent rates; negative 14.7196 at 1 percent</td>
                                 <td><a href="https://github.com/Arom-MFE/fe-usc/blob/main/05-annuity-guarantee-pricing/annuity_guarantee_pricing.ipynb" target="_blank" class="project-link">Open</a></td>
                             </tr>
                         </tbody>
@@ -102,7 +102,7 @@
             <!-- Notes -->
             <div class="project-section">
                 <h2 class="section-title">Notes</h2>
-                <p class="abstract-text">I wrote these notes chapter by chapter through the course and assembled them into one book. They start at interest rates and bonds and build up through option pricing, volatility, and rate models to credit risk, with each model derived step by step and explained in plain terms. Use the guide below: each chapter opens the PDF right at that chapter.</p>
+                <p class="abstract-text">I wrote these notes chapter by chapter through the course and assembled them into one book, from interest rates and bonds through option pricing, volatility, and rate models to credit risk. Every model is derived step by step and explained in plain terms. Each chapter below opens the PDF at that chapter.</p>
                 <div class="table-container">
                     <table class="results-table">
                         <thead>
