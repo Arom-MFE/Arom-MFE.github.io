@@ -47,7 +47,7 @@
             <!-- Overview -->
             <div class="project-section">
                 <h2 class="section-title">Overview</h2>
-                <p class="abstract-text">Eight machine learning projects from Machine Learning for Data Science, a graduate course at USC. Each is a standalone notebook with its own data, covering preparation, model selection, and evaluation on a public dataset.</p>
+                <p class="abstract-text">Everything from Machine Learning for Data Science, a graduate course at USC, in one place: eight projects and a full set of course notes. The projects run from k-nearest neighbours and regression through trees, SVMs, and clustering to semi-supervised learning and deep transfer learning; each is a standalone notebook with its own data, built around preparation, model selection, and honest evaluation. The table below links every notebook on GitHub, and the chapter guide at the bottom opens the notes PDF at any chapter.</p>
             </div>
 
             <!-- Projects -->
@@ -67,50 +67,50 @@
                             <tr>
                                 <td>1</td>
                                 <td><strong><a href="https://github.com/Arom-MFE/ml-usc/blob/main/01-knn-distance-metrics/knn_distance_metrics.ipynb" target="_blank" class="hero-contact-link">KNN and Distance Metrics</a></strong></td>
-                                <td>Classifies patients as normal or abnormal from six spinal measurements and tests how the distance metric changes the result; test error runs from 0.06 to 0.17 across five metrics.</td>
-                                <td><a href="https://github.com/Arom-MFE/ml-usc/blob/main/01-knn-distance-metrics/knn_distance_metrics.ipynb" target="_blank" class="project-link">Open →</a></td>
+                                <td>Diagnoses spinal abnormality from six biomechanical measurements with k-nearest neighbours, testing Euclidean, Manhattan, Minkowski, Chebyshev, and Mahalanobis metrics plus distance-weighted voting; the choice of metric alone moves test error from 0.06 to 0.17.</td>
+                                <td><a href="https://github.com/Arom-MFE/ml-usc/blob/main/01-knn-distance-metrics/knn_distance_metrics.ipynb" target="_blank" class="project-link">Open</a></td>
                             </tr>
                             <tr>
                                 <td>2</td>
                                 <td><strong><a href="https://github.com/Arom-MFE/ml-usc/blob/main/02-linear-regression/linear_regression_power_output.ipynb" target="_blank" class="hero-contact-link">Linear Regression on Power Plant Output</a></strong></td>
-                                <td>Predicts a power plant's hourly electrical output from four ambient measurements, working through outliers, nonlinearity, and interactions; KNN beats the OLS baseline 14.29 to 21.24 on test MSE.</td>
-                                <td><a href="https://github.com/Arom-MFE/ml-usc/blob/main/02-linear-regression/linear_regression_power_output.ipynb" target="_blank" class="project-link">Open →</a></td>
+                                <td>Predicts a power plant's hourly electrical output from ambient conditions, building from simple OLS through interaction and polynomial terms to a tuned KNN regressor; the final model cuts test MSE from 21.24 to 14.29.</td>
+                                <td><a href="https://github.com/Arom-MFE/ml-usc/blob/main/02-linear-regression/linear_regression_power_output.ipynb" target="_blank" class="project-link">Open</a></td>
                             </tr>
                             <tr>
                                 <td>3</td>
                                 <td><strong><a href="https://github.com/Arom-MFE/ml-usc/blob/main/03-time-series-classification/time_series_activity_classification.ipynb" target="_blank" class="hero-contact-link">Time Series Activity Classification</a></strong></td>
-                                <td>Identifies which of seven activities a person is performing from six wireless sensor channels using time-domain features; the bending detector separates held-out data exactly and the seven-class model reaches 0.842.</td>
-                                <td><a href="https://github.com/Arom-MFE/ml-usc/blob/main/03-time-series-classification/time_series_activity_classification.ipynb" target="_blank" class="project-link">Open →</a></td>
+                                <td>Recognizes which of seven physical activities a person is doing from raw wireless sensor streams, engineering time-domain features for logistic regression with recursive feature elimination, L1 penalties, and naive Bayes; seven-class accuracy reaches 0.842 and the bending detector is exact on the test set.</td>
+                                <td><a href="https://github.com/Arom-MFE/ml-usc/blob/main/03-time-series-classification/time_series_activity_classification.ipynb" target="_blank" class="project-link">Open</a></td>
                             </tr>
                             <tr>
                                 <td>4</td>
                                 <td><strong><a href="https://github.com/Arom-MFE/ml-usc/blob/main/04-regularization-and-trees/regularization_and_decision_trees.ipynb" target="_blank" class="hero-contact-link">Regularization and Decision Trees</a></strong></td>
-                                <td>Prunes a clinical decision tree down to readable IF-THEN rules, then compares ridge, LASSO, principal components, and boosting on a 122-predictor crime regression; ridge takes the lowest test MSE.</td>
-                                <td><a href="https://github.com/Arom-MFE/ml-usc/blob/main/04-regularization-and-trees/regularization_and_decision_trees.ipynb" target="_blank" class="project-link">Open →</a></td>
+                                <td>Turns a pruned decision tree into readable IF-THEN rules on a clinical dataset, then attacks a 122-predictor crime regression with ridge, LASSO, principal component regression, and XGBoost; ridge wins at 0.01732 test MSE.</td>
+                                <td><a href="https://github.com/Arom-MFE/ml-usc/blob/main/04-regularization-and-trees/regularization_and_decision_trees.ipynb" target="_blank" class="project-link">Open</a></td>
                             </tr>
                             <tr>
                                 <td>5</td>
                                 <td><strong><a href="https://github.com/Arom-MFE/ml-usc/blob/main/05-imbalanced-classification/imbalanced_classification_smote.ipynb" target="_blank" class="hero-contact-link">Imbalanced Classification with SMOTE</a></strong></td>
-                                <td>Detects air pressure system failures in Scania trucks where failures are 1.67 percent of the training set; class weighting cuts missed failures from 121 to 35.</td>
-                                <td><a href="https://github.com/Arom-MFE/ml-usc/blob/main/05-imbalanced-classification/imbalanced_classification_smote.ipynb" target="_blank" class="project-link">Open →</a></td>
+                                <td>Catches failing air pressure systems in Scania trucks where only 1.67 percent of the training set are failures, weighing class weights against SMOTE oversampling in random forests and XGBoost; missed failures drop from 121 to 35.</td>
+                                <td><a href="https://github.com/Arom-MFE/ml-usc/blob/main/05-imbalanced-classification/imbalanced_classification_smote.ipynb" target="_blank" class="project-link">Open</a></td>
                             </tr>
                             <tr>
                                 <td>6</td>
                                 <td><strong><a href="https://github.com/Arom-MFE/ml-usc/blob/main/06-multilabel-svm-clustering/multilabel_svm_and_kmeans.ipynb" target="_blank" class="hero-contact-link">Multi-Label SVM and K-Means Clustering</a></strong></td>
-                                <td>Assigns family, genus, and species to recorded frog calls from 22 MFCC features; a Gaussian-kernel SVM gets all three labels right on 98.75 percent of test calls.</td>
-                                <td><a href="https://github.com/Arom-MFE/ml-usc/blob/main/06-multilabel-svm-clustering/multilabel_svm_and_kmeans.ipynb" target="_blank" class="project-link">Open →</a></td>
+                                <td>Labels frog calls with family, genus, and species at once from 22 audio features, using one-vs-all Gaussian-kernel SVMs, L1-penalized linear SVMs, and k-means with silhouette selection; 98.75 percent of test calls get all three labels right.</td>
+                                <td><a href="https://github.com/Arom-MFE/ml-usc/blob/main/06-multilabel-svm-clustering/multilabel_svm_and_kmeans.ipynb" target="_blank" class="project-link">Open</a></td>
                             </tr>
                             <tr>
                                 <td>7</td>
                                 <td><strong><a href="https://github.com/Arom-MFE/ml-usc/blob/main/07-semi-supervised-active-learning/semi_supervised_and_active_learning.ipynb" target="_blank" class="hero-contact-link">Semi-Supervised and Active Learning</a></strong></td>
-                                <td>Compares a supervised SVM against self-training, k-means, and spectral clustering over 30 fixed splits, then tests whether choosing which points to label beats labeling at random.</td>
-                                <td><a href="https://github.com/Arom-MFE/ml-usc/blob/main/07-semi-supervised-active-learning/semi_supervised_and_active_learning.ipynb" target="_blank" class="project-link">Open →</a></td>
+                                <td>Asks how far you can get with few labels: a supervised SVM against self-training, k-means, and spectral clustering over 30 fixed splits, plus margin-based active learning against random labeling; supervision holds a clear edge at 0.9708.</td>
+                                <td><a href="https://github.com/Arom-MFE/ml-usc/blob/main/07-semi-supervised-active-learning/semi_supervised_and_active_learning.ipynb" target="_blank" class="project-link">Open</a></td>
                             </tr>
                             <tr>
                                 <td>8</td>
                                 <td><strong><a href="https://github.com/Arom-MFE/ml-usc/blob/main/08-transfer-learning-cnn/transfer_learning_fungi_classification.ipynb" target="_blank" class="hero-contact-link">Transfer Learning for Fungi Image Classification</a></strong></td>
-                                <td>Sorts 9,114 microscopy images of fungal infections into five classes with five frozen ImageNet backbones; ResNet101 leads at 0.8476 test accuracy.</td>
-                                <td><a href="https://github.com/Arom-MFE/ml-usc/blob/main/08-transfer-learning-cnn/transfer_learning_fungi_classification.ipynb" target="_blank" class="project-link">Open →</a></td>
+                                <td>Classifies 9,114 microscopy images of fungal infections by training heads on five frozen ImageNet backbones: ResNet50, ResNet101, EfficientNetB0, VGG16, and DenseNet201; ResNet101 leads at 0.8476 test accuracy.</td>
+                                <td><a href="https://github.com/Arom-MFE/ml-usc/blob/main/08-transfer-learning-cnn/transfer_learning_fungi_classification.ipynb" target="_blank" class="project-link">Open</a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -120,7 +120,7 @@
             <!-- Notes -->
             <div class="project-section">
                 <h2 class="section-title">Notes</h2>
-                <p class="abstract-text">A complete written treatment of the course, from linear regression and classification through model selection, tree-based methods, and support vector machines to unsupervised learning, semi-supervised and active learning, and neural networks. Each topic is built up from its definitions and formulas to the reasoning behind the method, with worked figures and proofs where they earn their place. Written to stand on its own as a reference; chapter links open the PDF at that chapter.</p>
+                <p class="abstract-text">I wrote these notes chapter by chapter through the course and assembled them into one book. They start at linear regression and end at deep learning, and every method along the way gets its definitions, the formulas, a figure where one helps, and a plain explanation of why it works. Use the guide below: each chapter opens the PDF right at that chapter.</p>
                 <div class="table-container">
                     <table class="results-table">
                         <thead>
@@ -128,48 +128,57 @@
                                 <th>Ch</th>
                                 <th>Chapter</th>
                                 <th>Topics</th>
+                                <th>Open</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>1</td>
                                 <td><strong><a href="ml-notes.pdf#page=5" target="_blank" class="hero-contact-link">Intro and Linear Regression</a></strong></td>
-                                <td>Learning paradigms, bias-variance trade-off, nearest neighbors, OLS, inference, multicollinearity, interactions</td>
+                                <td>Learning paradigms, the bias-variance trade-off, nearest neighbors, OLS and inference, multicollinearity, interaction effects</td>
+                                <td><a href="ml-notes.pdf#page=5" target="_blank" class="project-link">Open</a></td>
                             </tr>
                             <tr>
                                 <td>2</td>
                                 <td><strong><a href="ml-notes.pdf#page=33" target="_blank" class="hero-contact-link">Classification</a></strong></td>
-                                <td>Logistic regression, Bayes' rule, LDA and QDA, naive Bayes, error measures, class imbalance</td>
+                                <td>Logistic and multinomial regression, Bayes' rule, LDA and QDA, naive Bayes, error measures, class imbalance</td>
+                                <td><a href="ml-notes.pdf#page=33" target="_blank" class="project-link">Open</a></td>
                             </tr>
                             <tr>
                                 <td>3</td>
                                 <td><strong><a href="ml-notes.pdf#page=55" target="_blank" class="hero-contact-link">Linear Model Selection and Regularization</a></strong></td>
-                                <td>Subset selection, cross-validation, ridge, lasso, elastic net, PCR, partial least squares</td>
+                                <td>Subset selection, cross-validation, ridge, lasso, elastic net, principal components and partial least squares regression</td>
+                                <td><a href="ml-notes.pdf#page=55" target="_blank" class="project-link">Open</a></td>
                             </tr>
                             <tr>
                                 <td>4</td>
                                 <td><strong><a href="ml-notes.pdf#page=74" target="_blank" class="hero-contact-link">Tree-Based Methods</a></strong></td>
-                                <td>Regression and classification trees, pruning, bagging, random forests, boosting, AdaBoost, stacking</td>
+                                <td>Regression and classification trees, pruning, bagging, random forests, boosting and AdaBoost, Extra Trees, stacking and mixtures of experts</td>
+                                <td><a href="ml-notes.pdf#page=74" target="_blank" class="project-link">Open</a></td>
                             </tr>
                             <tr>
                                 <td>5</td>
                                 <td><strong><a href="ml-notes.pdf#page=93" target="_blank" class="hero-contact-link">Support Vector Machines</a></strong></td>
-                                <td>Maximal margin, soft margin, kernels, multi-class and multi-label SVMs, hinge loss, VC dimension, SVR</td>
+                                <td>Maximal and soft margins, kernels, multi-class and multi-label SVMs, hinge loss, VC dimension, support vector regression</td>
+                                <td><a href="ml-notes.pdf#page=93" target="_blank" class="project-link">Open</a></td>
                             </tr>
                             <tr>
                                 <td>6</td>
                                 <td><strong><a href="ml-notes.pdf#page=111" target="_blank" class="hero-contact-link">Unsupervised Learning</a></strong></td>
-                                <td>K-means and k-medoids, hierarchical clustering, choosing K, silhouette and gap statistic, PCA and the SVD, Fisher's LDA</td>
+                                <td>K-means and k-medoids, hierarchical clustering, choosing K with silhouette and gap statistics, PCA and the SVD, Fisher's LDA</td>
+                                <td><a href="ml-notes.pdf#page=111" target="_blank" class="project-link">Open</a></td>
                             </tr>
                             <tr>
                                 <td>7</td>
                                 <td><strong><a href="ml-notes.pdf#page=134" target="_blank" class="hero-contact-link">Semi-Supervised and Active Learning</a></strong></td>
-                                <td>Self-training, co-training, semi-supervised SVM, cluster and label, uncertainty sampling, query by committee</td>
+                                <td>Self-training, co-training, semi-supervised SVMs, cluster and label, uncertainty sampling, query by committee</td>
+                                <td><a href="ml-notes.pdf#page=134" target="_blank" class="project-link">Open</a></td>
                             </tr>
                             <tr>
                                 <td>8</td>
                                 <td><strong><a href="ml-notes.pdf#page=143" target="_blank" class="hero-contact-link">Neural Networks and Deep Learning</a></strong></td>
-                                <td>Perceptron, MLPs and backpropagation, regularization and dropout, CNNs, transfer learning, RNNs, LSTM and GRU</td>
+                                <td>The perceptron, MLPs and backpropagation, dropout and regularization, CNNs, transfer learning, RNNs, LSTM and GRU</td>
+                                <td><a href="ml-notes.pdf#page=143" target="_blank" class="project-link">Open</a></td>
                             </tr>
                         </tbody>
                     </table>
