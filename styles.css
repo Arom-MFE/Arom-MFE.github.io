@@ -314,8 +314,8 @@ section:last-of-type {
 .timeline-item::before {
     content: '';
     position: absolute;
-    left: 0;
-    top: 0.75rem;
+    left: -2px;
+    top: 5.5px;
     width: 8px;
     height: 8px;
     border-radius: 50%;
@@ -472,8 +472,8 @@ section:last-of-type {
 .experience-item::before {
     content: '';
     position: absolute;
-    left: 0;
-    top: 0.75rem;
+    left: -2px;
+    top: 6.5px;
     width: 8px;
     height: 8px;
     border-radius: 50%;
