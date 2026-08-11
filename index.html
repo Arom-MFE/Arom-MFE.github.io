@@ -173,8 +173,10 @@
                         </div>
                     </div>
                     <ul class="experience-details">
-                        <li>Built quantitative models and research tooling in Python for the firm's investment research</li>
-                        <li>Tested ideas on historical market data and summarized findings for the research team</li>
+                        <li>I designed, built, and shipped five production systems in Python for a derivatives-focused hedge fund in one summer: a volatility forecasting engine, an options screener, a research dashboard, a broker execution layer, and a daily portfolio risk program. All five run daily on the live desk, on real capital, backed by 1,229 passing test cases.</li>
+                        <li>Volatility engine: 17 realized volatility measures and 15 conditional volatility models, every measure-model combination tuned across inputs, training windows, and scoring metrics in a leakage-proof walk-forward design. A pre-registered study across four horizons ranks each candidate against its peers and a baseline, and the winning models ship with calibrated prediction intervals and live drift monitoring.</li>
+                        <li>Screener: fast, multi-condition scans across the full US-listed options market, gating on listing structure, pricing, and liquidity, then convexity analytics computed over each contract's own greek and volatility history, so present pricing ranks against its own past. Shortlisted candidates reach the dashboard I built on the broker library, where they are repriced live and judged against the book they would enter before the trade is placed.</li>
+                        <li>Portfolio risk and analysis: full book measurement resting on maturity-corrections derived by me, which normalize greek time series across tenor, so an extreme rank signals a regime change, not the passage of time. Any sub-portfolio or strategy isolates across 75 daily metrics and 48 history statistics, driving exit and hedge decisions on live positions, with every number queryable in plain SQL and any past day reproducible byte for byte.</li>
                     </ul>
                 </div>
                 <div class="experience-item">
