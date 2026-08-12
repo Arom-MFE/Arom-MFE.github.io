@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Source Python Library for Kalshi Prediction Market Data | Alexander Rom</title>
+    <link rel="stylesheet" href="styles.css">
+    <meta name="description" content="Open source Python library that collects price history, individual trades, and order book snapshots from Kalshi prediction markets.">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta property="og:title" content="Open Source Python Library for Kalshi Prediction Market Data | Alexander Rom">
+    <meta property="og:description" content="Open source Python library that collects price history, individual trades, and order book snapshots from Kalshi prediction markets.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://alexanderom.com/project-kalshi-market-data.html">
+    <meta property="og:image" content="https://alexanderom.com/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html">AR</a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html#about" class="nav-link">About</a></li>
+                <li><a href="index.html#projects" class="nav-link">Projects</a></li>
+                <li><a href="index.html#experience" class="nav-link">Experience</a></li>
+                <li><a href="index.html#education" class="nav-link">Education</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Project Detail Section -->
+    <section class="project-detail">
+        <div class="container">
+            <div class="project-detail-header">
+                <a href="index.html#projects" class="back-link">← Back to Research & Projects</a>
+                <h1 class="project-detail-title">Open Source Python Library for Kalshi Prediction Market Data</h1>
+            </div>
+
+            <div class="project-detail-header" style="margin-bottom: 1.5rem; margin-top: 0.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+                <a href="https://github.com/Arom-MFE/Kalshi_Pull" target="_blank" class="project-link-button">View on GitHub →</a>
+            </div>
+
+            <!-- Overview -->
+            <div class="project-section">
+                <h2 class="section-title">Overview</h2>
+                <p class="abstract-text">Kalshi_Pull is an open source Python library for collecting market data from Kalshi, an exchange where contracts trade on real-world events. Each contract settles at one dollar if the event happens and zero if it does not, so a price reads directly as a market-implied probability.</p>
+                <p class="abstract-text">The library collects three kinds of data: price history at daily, hourly, and minute frequency, every individual trade, and snapshots of the order book. It runs on a single ticker, a whole series, or the full committed catalog, and it can poll live markets on a schedule. The repository holds the library, the command line pullers, the live poller, the discovery scripts, and the ticker catalog.</p>
+                <p class="abstract-text">Output is written to disk in one consistent layout, organized by data type, series, and date. Pulls resume from the last stored row and drop duplicates on write, so a store can be topped up on any schedule without gaps or repeats.</p>
+            </div>
+
+            <!-- Coverage -->
+            <div class="project-section">
+                <h2 class="section-title">Coverage</h2>
+                <p class="abstract-text">The committed catalog covers 15 macro series, 524 events, and 4,065 unique tickers, measured from all_tickers.json in the repository. Discovery rebuilds the catalog for any series on the exchange.</p>
+
+                <div style="font-family: 'Fira Code', 'Consolas', monospace; font-size: 0.9rem; line-height: 1.6; background-color: #f9f9f9; padding: 1rem; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 1.5rem;">
+                    <h4 style="margin-top: 0; margin-bottom: 1rem; color: var(--primary-color);">Cataloged series</h4>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+                            <thead>
+                                <tr style="background-color: #f5f5f5; border-bottom: 2px solid #ddd;">
+                                    <th style="padding: 0.75rem 0.5rem; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">Category</th>
+                                    <th style="padding: 0.75rem 0.5rem; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">Series</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="background-color: #ffffff; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">Inflation</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">KXCPI, KXCPIYOY, KXACPI, KXCPICORE, KXPCECORE, KXCPICOREYOY</td>
+                                </tr>
+                                <tr style="background-color: #fafafa; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">Labor</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">KXU3, KXJOBLESS, KXPAYROLLS</td>
+                                </tr>
+                                <tr style="background-color: #ffffff; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">Growth</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">KXGDP, KXGDPYEAR, KXRECSSNBER</td>
+                                </tr>
+                                <tr style="background-color: #fafafa; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">Fed</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">KXFEDDECISION, KXFED, KXFEDMEET</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <p class="abstract-text">Live polling runs over a hand-verified focus universe of 37 active tickers, pulling minute candles, trades, and order book snapshots on separate cadences.</p>
+            </div>
+
+            <!-- How collection works -->
+            <div class="project-section">
+                <h2 class="section-title">How collection works</h2>
+                <p class="abstract-text">The exchange is the hard part. Kalshi splits its data across live and historical endpoints that name the same fields differently, serializes numbers as text, and drops settled markets off the live side. The library absorbs each of these, so settled and active markets read identically in the output.</p>
+
+                <div style="font-family: 'Fira Code', 'Consolas', monospace; font-size: 0.9rem; line-height: 1.6; background-color: #f9f9f9; padding: 1rem; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 1.5rem;">
+                    <h4 style="margin-top: 0; margin-bottom: 1rem; color: var(--primary-color);">Exchange behavior and how the library handles it</h4>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+                            <thead>
+                                <tr style="background-color: #f5f5f5; border-bottom: 2px solid #ddd;">
+                                    <th style="padding: 0.75rem 0.5rem; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">What the exchange does</th>
+                                    <th style="padding: 0.75rem 0.5rem; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">What the library does</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="background-color: #ffffff; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">Live and historical endpoints name the same candle differently, price.close_dollars and volume_fp against price.close and volume</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">Normalizes both response shapes into one schema</td>
+                                </tr>
+                                <tr style="background-color: #fafafa; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">Settled markets return 404 from the live endpoints</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">Catches the 404 and switches to the historical endpoint mid-run</td>
+                                </tr>
+                                <tr style="background-color: #ffffff; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">Event and market lookups fail on older contracts</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">Resolves through up to four endpoint tiers before giving up</td>
+                                </tr>
+                                <tr style="background-color: #fafafa; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">Prices, volumes, and counts arrive as decimal strings</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">Casts every numeric field to float64</td>
+                                </tr>
+                                <tr style="background-color: #ffffff; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">Contract counts carry two decimal places</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">Passes fractional fills through unscaled</td>
+                                </tr>
+                                <tr style="background-color: #fafafa; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">A request spanning more than 5,000 candles is rejected</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">Sizes every request window under the cap, so a three day minute window is 4,320 bars</td>
+                                </tr>
+                                <tr style="background-color: #ffffff; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">Older tickers lack the KX prefix that newer ones carry</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">Queries both spellings during discovery</td>
+                                </tr>
+                                <tr style="background-color: #fafafa; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">Some tickers cannot be resolved at all</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">Logs them to a skip file and continues the run</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- What gets stored -->
+            <div class="project-section">
+                <h2 class="section-title">What gets stored</h2>
+                <p class="abstract-text">Three schemas cover everything the library writes.</p>
+
+                <div style="font-family: 'Fira Code', 'Consolas', monospace; font-size: 0.9rem; line-height: 1.6; background-color: #f9f9f9; padding: 1rem; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 1.5rem;">
+                    <h4 style="margin-top: 0; margin-bottom: 1rem; color: var(--primary-color);">Output schema</h4>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+                            <thead>
+                                <tr style="background-color: #f5f5f5; border-bottom: 2px solid #ddd;">
+                                    <th style="padding: 0.75rem 0.5rem; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">Data</th>
+                                    <th style="padding: 0.75rem 0.5rem; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">Written to</th>
+                                    <th style="padding: 0.75rem 0.5rem; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">Columns</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="background-color: #ffffff; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">Candles, daily, hourly, and minute</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">candles/{frequency}/{series}/</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">ts_ms, open, high, low, close, mean, volume, open_interest, market_ticker, event_ticker, series_ticker</td>
+                                </tr>
+                                <tr style="background-color: #fafafa; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">Trades</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">trades/{series}/{ticker}/{yyyy-mm}</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">trade_id, market_ticker, ts_ms, yes_price, no_price, count, taker_side</td>
+                                </tr>
+                                <tr style="background-color: #ffffff; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">Order book snapshots</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">orderbook/{ticker}/{yyyy-mm-dd}</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">ts_ms, market_ticker, side, price, quantity, cumulative_qty, distance_from_top</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <h3 class="subsection-title">The data contract</h3>
+                <ul class="bullet-list">
+                    <li>Timestamps are int64 UTC milliseconds in a column named ts_ms.</li>
+                    <li>Prices are float64 dollars between 0.0 and 1.0 and read directly as probabilities.</li>
+                    <li>Volumes and contract counts pass through exactly as the exchange reports them, and fractional counts are genuine fills.</li>
+                    <li>Where the API provides no value, the store holds NaN, never an invented zero.</li>
+                </ul>
+
+                <p class="abstract-text">Nine offline tests cover candle normalization, trade normalization, and the Parquet append round trip. They run against synthetic fixtures, with no credentials and no network.</p>
+            </div>
+
+            <!-- Examples -->
+            <div class="project-section">
+                <h2 class="section-title">Examples</h2>
+                <p class="abstract-text">The examples below show data the library collected, plotted and tabulated exactly as stored. Nothing is smoothed, filled in, or interpreted.</p>
+                <p class="abstract-text">Both run on frozen copies of the output, collected 2026-08-09 through 2026-08-11 UTC and checked against MD5 manifests. Prices are stated as market-implied probabilities, which is what the exchange trades. The case workspace stays local.</p>
+
+                <h3 class="subsection-title">Example one: US recession contracts</h3>
+                <p class="abstract-text">Four annual recession markets were pulled end to end: RECSSNBER-23, RECSSNBER-24, RECSSNBER-25, and KXRECSSNBER-26. The pull holds 1,678 daily candles across the four vintages, 8,890 hourly candles for the 2026 vintage, and 48,154 individual fills across the four tapes. Metadata recorded that the 2023, 2024, and 2025 vintages settled at no with value 0.0, and that the 2026 vintage remains active.</p>
+
+                <div style="margin-bottom: 2rem;">
+                    <a href="kalshi_vintages_strip.png" target="_blank">
+                        <img src="kalshi_vintages_strip.png" alt="Daily closes of four recession contract vintages with settlement markers" style="max-width: 100%; height: auto; margin-bottom: 0.75rem; display: block;">
+                    </a>
+                    <p class="table-note">Daily closes for four annual US recession markets, 2023 through 2026, each price read directly as a market-implied probability. Diamonds mark the three settled vintages at 0.0; the 2026 vintage still trades. Isolated closes render as dots, including the 2026 peak of 0.44 on 2025-07-18.</p>
+                </div>
+
+                <div style="margin-bottom: 2rem;">
+                    <a href="kalshi_deep_dive_2026.png" target="_blank">
+                        <img src="kalshi_deep_dive_2026.png" alt="KXRECSSNBER-26 daily close, volume, and open interest" style="max-width: 100%; height: auto; margin-bottom: 0.75rem; display: block;">
+                    </a>
+                    <p class="table-note">KXRECSSNBER-26 in three panels on one calendar axis: daily close, daily volume, and open interest, from the first candle on 2025-07-15 through 2026-08-10. Gaps are stored NaN closes. Open interest plots unscaled as the API reports it, peaking at 899,468.34 contracts.</p>
+                </div>
+
+                <div style="margin-bottom: 2rem;">
+                    <a href="kalshi_tape_vignette.png" target="_blank">
+                        <img src="kalshi_tape_vignette.png" alt="RECSSNBER-23 individual fills around 2023-01-27 under the daily close line" style="max-width: 100%; height: auto; margin-bottom: 0.75rem; display: block;">
+                    </a>
+                    <p class="table-note">The RECSSNBER-23 trade tape over the 21 days around 2023-01-27: 77 individual fills as dots sized by contract count, under the daily close line. The day was picked by rule, not by eye: volume at or above the vintage median, then the largest one-day close change. The fills show the intraday path the daily candles compress, down to 0.03 on 2023-01-26.</p>
+                </div>
+
+                <div style="font-family: 'Fira Code', 'Consolas', monospace; font-size: 0.9rem; line-height: 1.6; background-color: #f9f9f9; padding: 1rem; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 1.5rem;">
+                    <h4 style="margin-top: 0; margin-bottom: 1rem; color: var(--primary-color);">Case 1 metrics, per vintage</h4>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 800px;">
+                            <thead>
+                                <tr style="background-color: #f5f5f5; border-bottom: 2px solid #ddd;">
+                                    <th style="padding: 0.75rem 0.5rem; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">Metric</th>
+                                    <th style="padding: 0.75rem 0.5rem; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">RECSSNBER-23</th>
+                                    <th style="padding: 0.75rem 0.5rem; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">RECSSNBER-24</th>
+                                    <th style="padding: 0.75rem 0.5rem; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">RECSSNBER-25</th>
+                                    <th style="padding: 0.75rem 0.5rem; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">KXRECSSNBER-26</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="background-color: #ffffff; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">Date range</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">2022-11-08 to 2024-01-26</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">2023-07-07 to 2025-02-01</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">2024-08-06 to 2026-02-01</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">2025-07-15 to 2026-08-10</td>
+                                </tr>
+                                <tr style="background-color: #fafafa; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">First close</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.02</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.33</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.46</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.42</td>
+                                </tr>
+                                <tr style="background-color: #ffffff; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">Peak close, date</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.49 on 2022-12-31</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.67 on 2023-07-26</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.67 on 2025-04-30</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.44 on 2025-07-18</td>
+                                </tr>
+                                <tr style="background-color: #fafafa; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">Final close</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.00</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.01</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.02</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.08</td>
+                                </tr>
+                                <tr style="background-color: #ffffff; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">Settlement</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">no, 0.0</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">no, 0.0</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">no, 0.0</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">pending</td>
+                                </tr>
+                                <tr style="background-color: #fafafa; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">Total volume</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">77,762.00</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">603,186.00</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">4,781,411.00</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">3,220,135.60</td>
+                                </tr>
+                                <tr style="background-color: #ffffff; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">Peak open interest</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">22,411.00</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">105,588.00</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">665,359.00</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">899,468.34</td>
+                                </tr>
+                                <tr style="background-color: #fafafa; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">Rows with numeric close</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">273</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">486</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">527</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">355</td>
+                                </tr>
+                                <tr style="background-color: #ffffff; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">NaN close rows</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">37</td>
+                                </tr>
+                                <tr style="background-color: #fafafa; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">Missing calendar days</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">172</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">90</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">18</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0</td>
+                                </tr>
+                                <tr style="background-color: #ffffff; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">Largest one-day repricing</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">-0.23 on 2023-01-27, volume 1,632.00</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">+0.20 on 2023-07-19, volume 10.00</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">-0.43 on 2024-11-16, volume 0.00</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">+0.11 on 2026-03-09, volume 42,847.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p style="margin-top: 0.75rem; margin-bottom: 0; color: #666; font-size: 0.85rem;">Computed from the frozen Case 1 data by the case metrics script.</p>
+                </div>
+
+                <p class="abstract-text">The RECSSNBER-23 peak close of 0.49 ties across 7 dates, 2022-12-31 through 2023-03-25, and the table reports the first.</p>
+                <p class="abstract-text">The RECSSNBER-25 raw repricing entry is a documented zero-volume artifact. Excluding that date, its largest one-day repricing is -0.12 on 2025-04-10, volume 142,073.00.</p>
+
+                <div style="font-family: 'Fira Code', 'Consolas', monospace; font-size: 0.9rem; line-height: 1.6; background-color: #f9f9f9; padding: 1rem; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 1.5rem;">
+                    <h4 style="margin-top: 0; margin-bottom: 1rem; color: var(--primary-color);">Dated snapshots, KXRECSSNBER-26</h4>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+                            <thead>
+                                <tr style="background-color: #f5f5f5; border-bottom: 2px solid #ddd;">
+                                    <th style="padding: 0.75rem 0.5rem; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">Snapshot date</th>
+                                    <th style="padding: 0.75rem 0.5rem; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">Close date used</th>
+                                    <th style="padding: 0.75rem 0.5rem; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">Close</th>
+                                    <th style="padding: 0.75rem 0.5rem; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">Percent</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="background-color: #ffffff; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">2025-08-15</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">2025-08-13</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">0.38</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">38%</td>
+                                </tr>
+                                <tr style="background-color: #fafafa; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">2026-02-02</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">2026-02-02</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">0.21</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">21%</td>
+                                </tr>
+                                <tr style="background-color: #ffffff; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">Latest in frozen data</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">2026-08-10</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">0.08</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">8%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p style="margin-top: 0.75rem; margin-bottom: 0; color: #666; font-size: 0.85rem;">Last available close on or before each snapshot date, from the frozen daily Parquet.</p>
+                </div>
+
+                <h3 class="subsection-title">Example two: the July CPI ladder</h3>
+                <p class="abstract-text">Kalshi lists one contract per threshold, so the July 2026 CPI event holds nine markets at strikes from 3.2 to 4.0 percent. All nine were pulled before the 2026-08-12 release, as a pre-event example. The pull holds 708 daily candles, 9,813 hourly candles, 53,250 minute candles, 12,460 fills, and 742 order book rows from three sweeps of the ladder.</p>
+
+                <div style="margin-bottom: 2rem;">
+                    <a href="kalshi_ladder_drift.png" target="_blank">
+                        <img src="kalshi_ladder_drift.png" alt="Daily closes for the nine KXCPIYOY-26JUL strikes" style="max-width: 100%; height: auto; margin-bottom: 0.75rem; display: block;">
+                    </a>
+                    <p class="table-note">Daily closes for all nine KXCPIYOY-26JUL strikes in two panels: the full event life from 2026-05-13 on top, and the liquid window from 2026-07-13 below, labelled at each line's final value. Strikes run light green at T3.2 through dark purple at T4.0. Lines break at stored NaN closes, and isolated closes render as dots.</p>
+                </div>
+
+                <div style="margin-bottom: 2rem;">
+                    <a href="kalshi_implied_distribution.png" target="_blank">
+                        <img src="kalshi_implied_distribution.png" alt="Bucket probabilities for the July 2026 CPI print at four snapshot dates" style="max-width: 100%; height: auto; margin-bottom: 0.75rem; display: block;">
+                    </a>
+                    <p class="table-note">Bucket probabilities for the July 2026 CPI YoY print at four snapshot dates, from adjacent-strike differences in daily closes. These are risk-neutral market prices, not a forecast of the print. Negative buckets from stale quotes are clipped at zero, so three panels sum above 100 percent by the inversion sizes shown in the monotonicity table.</p>
+                </div>
+
+                <div style="margin-bottom: 2rem;">
+                    <a href="kalshi_depth_curves.png" target="_blank">
+                        <img src="kalshi_depth_curves.png" alt="Cumulative YES and NO bid depth for strikes T3.3 and T3.4" style="max-width: 100%; height: auto; margin-bottom: 0.75rem; display: block;">
+                    </a>
+                    <p class="table-note">Cumulative resting depth by price for the YES and NO bid books of T3.3 and T3.4, the two most liquid strikes by stored book rows. Each panel is one captured snapshot, titled with its capture time. The three sweeps ran on 2026-08-09 and 2026-08-11, each walking the nine strikes in about one second.</p>
+                </div>
+
+                <div style="font-family: 'Fira Code', 'Consolas', monospace; font-size: 0.9rem; line-height: 1.6; background-color: #f9f9f9; padding: 1rem; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 1.5rem;">
+                    <h4 style="margin-top: 0; margin-bottom: 1rem; color: var(--primary-color);">Case 2 per-strike metrics</h4>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 800px;">
+                            <thead>
+                                <tr style="background-color: #f5f5f5; border-bottom: 2px solid #ddd;">
+                                    <th style="padding: 0.75rem 0.5rem; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">Metric</th>
+                                    <th style="padding: 0.75rem 0.5rem; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">T3.2</th>
+                                    <th style="padding: 0.75rem 0.5rem; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">T3.3</th>
+                                    <th style="padding: 0.75rem 0.5rem; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">T3.4</th>
+                                    <th style="padding: 0.75rem 0.5rem; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">T3.5</th>
+                                    <th style="padding: 0.75rem 0.5rem; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">T3.6</th>
+                                    <th style="padding: 0.75rem 0.5rem; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">T3.7</th>
+                                    <th style="padding: 0.75rem 0.5rem; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">T3.8</th>
+                                    <th style="padding: 0.75rem 0.5rem; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">T3.9</th>
+                                    <th style="padding: 0.75rem 0.5rem; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">T4.0</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="background-color: #ffffff; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">Latest close, date</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.89 on 2026-08-10</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.55 on 2026-08-10</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.20 on 2026-08-10</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.05 on 2026-08-10</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.01 on 2026-08-10</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.01 on 2026-08-10</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.01 on 2026-08-10</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.02 on 2026-08-08</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.02 on 2026-08-08</td>
+                                </tr>
+                                <tr style="background-color: #fafafa; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">Total volume</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">58,997.07</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">166,575.51</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">178,014.41</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">135,678.95</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">96,383.61</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">55,217.04</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">39,180.91</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">18,873.65</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">21,276.83</td>
+                                </tr>
+                                <tr style="background-color: #ffffff; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">Minute bars</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">5,678</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">13,466</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">15,711</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">7,269</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">4,113</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">3,249</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">1,978</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">1,014</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">772</td>
+                                </tr>
+                                <tr style="background-color: #fafafa; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">Trades</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">1,823</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">2,940</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">2,960</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">2,102</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">937</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">481</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">579</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">265</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">373</td>
+                                </tr>
+                                <tr style="background-color: #ffffff; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">Fractional-fill share</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">63.4%</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">49.0%</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">48.0%</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">45.9%</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">12.9%</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">18.7%</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">5.0%</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">10.2%</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">14.2%</td>
+                                </tr>
+                                <tr style="background-color: #fafafa; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">Close at 2026-06-14</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.99</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.94</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.98</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.98</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.97</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.96</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.81</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.68</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.53</td>
+                                </tr>
+                                <tr style="background-color: #ffffff; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">Close at 2026-07-13</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.99</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.93</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.88</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.84</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.42</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.14</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.17</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.12</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.09</td>
+                                </tr>
+                                <tr style="background-color: #fafafa; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">Close at 2026-08-03</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.89</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.64</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.29</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.07</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.05</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.01</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.01</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.01</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.01</td>
+                                </tr>
+                                <tr style="background-color: #ffffff; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">Close at 2026-08-10</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.89</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.55</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.20</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.05</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.01</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.01</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.01</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.02</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee; white-space: nowrap;">0.02</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p style="margin-top: 0.75rem; margin-bottom: 0; color: #666; font-size: 0.85rem;">Computed from the frozen Case 2 data by the case metrics script.</p>
+                </div>
+
+                <div style="font-family: 'Fira Code', 'Consolas', monospace; font-size: 0.9rem; line-height: 1.6; background-color: #f9f9f9; padding: 1rem; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 1.5rem;">
+                    <h4 style="margin-top: 0; margin-bottom: 1rem; color: var(--primary-color);">Monotonicity check, Case 2 ladder</h4>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+                            <thead>
+                                <tr style="background-color: #f5f5f5; border-bottom: 2px solid #ddd;">
+                                    <th style="padding: 0.75rem 0.5rem; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">Snapshot</th>
+                                    <th style="padding: 0.75rem 0.5rem; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">Pair</th>
+                                    <th style="padding: 0.75rem 0.5rem; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">Lower strike close</th>
+                                    <th style="padding: 0.75rem 0.5rem; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">Higher strike close</th>
+                                    <th style="padding: 0.75rem 0.5rem; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">Inversion size</th>
+                                    <th style="padding: 0.75rem 0.5rem; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">Against tolerance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="background-color: #ffffff; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">2026-06-14</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">T3.3 and T3.4</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">0.94</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">0.98</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">0.04</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">exceeds</td>
+                                </tr>
+                                <tr style="background-color: #fafafa; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">2026-07-13</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">T3.7 and T3.8</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">0.14</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">0.17</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">0.03</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">exceeds</td>
+                                </tr>
+                                <tr style="background-color: #ffffff; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">2026-08-03</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">none</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;"></td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;"></td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;"></td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;"></td>
+                                </tr>
+                                <tr style="background-color: #fafafa; border-bottom: 1px solid #eee;">
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">2026-08-10</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">T3.8 and T3.9</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">0.01</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">0.02</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">0.01</td>
+                                    <td style="padding: 0.6rem 0.5rem; border-right: 1px solid #eee;">within</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p style="margin-top: 0.75rem; margin-bottom: 0; color: #666; font-size: 0.85rem;">Every adjacent-strike inversion across the four snapshots, tolerance 0.02.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; Alexander Rom. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
